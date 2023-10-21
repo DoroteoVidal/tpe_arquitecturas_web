@@ -1,5 +1,7 @@
 package com.tudai.aw.ms_usuario.model;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -7,7 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Data
@@ -30,18 +32,22 @@ public class Usuario {
 	@Column(nullable = false)
 	private String email;
 	
-	@ManyToMany(mappedBy = "usuarios")
+	@Column(name = "fecha_de_alta")
+	private Date fechaDeAlta;
+	
+	@OneToMany(mappedBy = "usuario")
 	private List<Cuenta> cuentas;
 	
 	public Usuario() {}
 
-	public Usuario(String nombre, String apellido, Long telefono, String email, List<Cuenta> cuentas) {
+	public Usuario(String nombre, String apellido, Long telefono, String email, Date fechaDeAlta) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.telefono = telefono;
 		this.email = email;
-		this.cuentas = cuentas;
+		this.fechaDeAlta = fechaDeAlta;
+		this.cuentas = new ArrayList<>();
 	}
 	
 	
