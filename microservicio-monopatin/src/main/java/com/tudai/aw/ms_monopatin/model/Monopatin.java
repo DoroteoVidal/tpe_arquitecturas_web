@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 
 @Data
@@ -16,28 +18,21 @@ public class Monopatin {
 	private Long id;
 	
 	@Column(nullable = false)
-	private boolean disponible;
+	private String estado; //disponible, en uso, mantenimiento
 	
-	@Column(nullable = false)
-	private double latitud;
-	
-	@Column(nullable = false)
-	private double longitud;
-	
-	@Column(nullable = false)
-	private String idGps;
+	@OneToOne
+	@JoinColumn(name = "id_gps")
+	private Gps gps;
 	
 	@Column(nullable = false)
 	private double kilometrosRecorridos;
 	
 	public Monopatin() {}
 	
-	public Monopatin(boolean disponible, double latitud, double longitud, String idGps, double kilometrosRecorridos) {
+	public Monopatin(String estado, Gps gps, double kilometrosRecorridos) {
 		super();
-		this.disponible = disponible;
-		this.latitud = latitud;
-		this.longitud = longitud;
-		this.idGps = idGps;
+		this.estado = estado;
+		this.gps = gps;
 		this.kilometrosRecorridos = kilometrosRecorridos;
 	}
 	
