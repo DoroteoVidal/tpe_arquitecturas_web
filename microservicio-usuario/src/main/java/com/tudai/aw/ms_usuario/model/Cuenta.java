@@ -1,5 +1,6 @@
 package com.tudai.aw.ms_usuario.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,7 +20,7 @@ public class Cuenta {
 	@Column
 	private double dinero;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private Usuario usuario;
 
 	public Cuenta() {}
