@@ -1,5 +1,6 @@
 package com.tudai.aw.ms_monopatin.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ public class Monopatin {
 	@Column(nullable = false)
 	private String estado; //disponible, en uso, mantenimiento
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "id_gps")
 	private Gps gps;
 	

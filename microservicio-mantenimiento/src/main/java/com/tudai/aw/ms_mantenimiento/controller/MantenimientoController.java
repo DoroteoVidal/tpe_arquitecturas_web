@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tudai.aw.ms_mantenimiento.service.MantenimientoService;
 
 @RestController
-@RequestMapping("mantenimiento")
+@RequestMapping("mantenimientos")
 public class MantenimientoController {
 	
 	@Autowired
