@@ -28,11 +28,11 @@ public class Viaje {
 	@Column(name = "id_usuario")
 	private Long idUsuario;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	private Date fechaHoraInicio;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	private Date fechaHoraFin;
 	

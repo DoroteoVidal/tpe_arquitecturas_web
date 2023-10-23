@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tudai.aw.ms_monopatin.model.Monopatin;
+import com.tudai.aw.ms_monopatin.dto.MonopatinDTO;
 import com.tudai.aw.ms_monopatin.service.MonopatinService;
 
 @RestController
@@ -21,7 +21,7 @@ public class MonopatinController {
 	private MonopatinService monopatinService;
 	
 	@PostMapping("")
-    public ResponseEntity<?> save(@RequestBody Monopatin monopatin) {
+    public ResponseEntity<?> save(@RequestBody MonopatinDTO monopatin) {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinService.save(monopatin));
         }catch (Exception e){

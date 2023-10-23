@@ -3,7 +3,10 @@ package com.tudai.aw.ms_monopatin.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tudai.aw.ms_monopatin.dto.MonopatinDTO;
+import com.tudai.aw.ms_monopatin.model.Gps;
 import com.tudai.aw.ms_monopatin.model.Monopatin;
+import com.tudai.aw.ms_monopatin.repository.GpsRepository;
 import com.tudai.aw.ms_monopatin.repository.MonopatinRepository;
 
 import jakarta.transaction.Transactional;
@@ -14,10 +17,18 @@ public class MonopatinService {
 	@Autowired
 	private MonopatinRepository monopatinRepository;
 	
+	@Autowired
+	private GpsRepository gpsRepository;
+	
 	@Transactional
-    public Monopatin save(Monopatin monopatin) throws Exception {
+    public MonopatinDTO save(MonopatinDTO dto) throws Exception {
+		Gps gps = gpsRepository.obtenerPorId(dto.getGps()).get();
+		Monopatin monopatin = new Monopatin(dto.getEstado(), gps, dto.getKilometrosRecorridos());
         try{
-            return monopatinRepository.save(monopatin);
+            if(monopatinRepository.save(monopatin) != null) {
+            	return dto;
+            }
+        	return null;
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
