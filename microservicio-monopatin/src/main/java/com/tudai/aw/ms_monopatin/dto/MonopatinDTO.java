@@ -6,15 +6,15 @@ import lombok.Getter;
 public class MonopatinDTO {
 	
 	private String estado; //disponible, en uso, mantenimiento
-	private Long gps;
+	private Long idGps;
 	private double kilometrosRecorridos;
 	
 	public MonopatinDTO() {}
 	
-	public MonopatinDTO(String estado, Long gps, double kilometrosRecorridos) {
+	public MonopatinDTO(String estado, Long idGps, double kilometrosRecorridos) {
 		super();
 		this.estado = estado;
-		this.gps = gps;
+		this.idGps = idGps;
 		this.kilometrosRecorridos = kilometrosRecorridos;
 	}
 

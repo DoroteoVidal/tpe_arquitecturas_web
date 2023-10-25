@@ -22,7 +22,7 @@ public class MonopatinService {
 	
 	@Transactional
     public MonopatinDTO save(MonopatinDTO dto) throws Exception {
-		Gps gps = gpsRepository.obtenerPorId(dto.getGps()).get();
+		Gps gps = gpsRepository.obtenerPorId(dto.getIdGps()).get();
 		Monopatin monopatin = new Monopatin(dto.getEstado(), gps, dto.getKilometrosRecorridos());
         try{
             if(monopatinRepository.save(monopatin) != null) {
