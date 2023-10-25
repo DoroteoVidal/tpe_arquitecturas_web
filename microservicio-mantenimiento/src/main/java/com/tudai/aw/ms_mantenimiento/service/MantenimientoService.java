@@ -19,7 +19,7 @@ public class MantenimientoService {
 	private RestTemplate monopatinRest;
 	
 	@Transactional
-	public Mantenimiento registrarMantenimientoDeMonopatin(Long id) throws Exception {
+	public Mantenimiento agregarMantenimientoDeMonopatin(Mantenimiento mantenimiento) throws Exception {
 		//Aca se debe obtener el monopatin mediante el id...
 		//En caso de existir,
 			//consultar si esta disponible y corroborar que este en condiciones de mantenimiento (kilometros recorridos y tiempo de uso)...
