@@ -19,11 +19,11 @@ public class MantenimientoController {
 	private MantenimientoService mantenimientoService;
 	
 	@PostMapping("")
-	public ResponseEntity<?> agregarMantenimientoDeMonopatin(@RequestBody Mantenimiento mantenimiento) {
+	public ResponseEntity<?> save(@RequestBody Mantenimiento mantenimiento) {
 		try{
-			return ResponseEntity.status(HttpStatus.OK).body(mantenimientoService.agregarMantenimientoDeMonopatin(mantenimiento));
+			return ResponseEntity.status(HttpStatus.OK).body(mantenimientoService.save(mantenimiento));
 		}catch (Exception e){
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. Colocar mensaje de error.\"}");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo guardar el mantenimiento, revise los campos e intente nuevamente.\"}");
 		}
 	}
 

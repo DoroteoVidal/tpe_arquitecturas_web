@@ -21,14 +21,17 @@ public class MonopatinService {
 	private GpsRepository gpsRepository;
 	
 	@Transactional
-    public MonopatinDTO save(MonopatinDTO dto) throws Exception {
-		Gps gps = gpsRepository.obtenerPorId(dto.getIdGps()).get();
-		Monopatin monopatin = new Monopatin(dto.getEstado(), gps, dto.getKilometrosRecorridos());
+    public MonopatinDTO save(MonopatinDTO dto) throws Exception {	
         try{
+        	Gps gps = gpsRepository.obtenerPorId(dto.getIdGps()).get();
+    		Monopatin monopatin = new Monopatin(dto.getEstado(), gps, dto.getKilometrosRecorridos());
+    		
             if(monopatinRepository.save(monopatin) != null) {
             	return dto;
             }
+            
         	return null;
+        	
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
@@ -43,6 +46,29 @@ public class MonopatinService {
             }else{
                 throw new Exception();
             }
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+	
+	@Transactional
+	public MonopatinDTO obtenerMonopatin(Long id) throws Exception {
+		try {
+			Monopatin m = monopatinRepository.findById(id).get();
+			return new MonopatinDTO(m.getEstado(), m.getGps().getId(), m.getKilometrosRecorridos());
+		}catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+	}
+	
+	@Transactional
+    public MonopatinDTO actualizar(MonopatinDTO dto, Long id) throws Exception {
+        try{
+            Monopatin monopatin = monopatinRepository.findById(id).get();
+            Gps gps = gpsRepository.findById(dto.getIdGps()).get();
+            monopatin = monopatinRepository.save(new Monopatin(dto.getEstado(), gps, dto.getKilometrosRecorridos()));   
+            
+            return new MonopatinDTO(monopatin.getEstado(), monopatin.getGps().getId(), monopatin.getKilometrosRecorridos());
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }

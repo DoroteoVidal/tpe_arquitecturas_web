@@ -39,8 +39,18 @@ public class AdministracionService {
     }
 	
     public ResponseEntity<?> agregarGps(Gps gps) {
-    	// TODO Auto-generated method stub
-    	return null;
+    	HttpHeaders headers = new HttpHeaders();
+    	Gps gpsNuevo = new Gps(gps);
+		HttpEntity<Gps> requestEntity = new HttpEntity<>(gpsNuevo, headers);
+		
+		ResponseEntity<Gps> response = restTemplate.exchange(
+				"http://localhost:8011/gps/",
+				HttpMethod.POST,
+				requestEntity,
+				new ParameterizedTypeReference<Gps>() {}
+		);
+		
+		return response;
     }
 
 	public ResponseEntity<?> agregarMonopatinAMantenimiento(Long id) {
@@ -76,9 +86,9 @@ public class AdministracionService {
 	}
 
 	private ResponseEntity<?> agregarMantenimiento(Long id) {
-		HttpHeaders headers = new HttpHeaders();
-		
+		HttpHeaders headers = new HttpHeaders();		
 		Mantenimiento mantenimiento = new Mantenimiento();
+		
 		mantenimiento.setIdMonopatin(id);
 		mantenimiento.setFechaHoraInicio(Date.from(Instant.now()));
 		mantenimiento.setFechaHoraFin(null);
