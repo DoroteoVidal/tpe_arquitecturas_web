@@ -3,10 +3,7 @@ package com.tudai.aw.ms_monopatin.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tudai.aw.ms_monopatin.dto.MonopatinDTO;
-import com.tudai.aw.ms_monopatin.model.Gps;
 import com.tudai.aw.ms_monopatin.model.Monopatin;
-import com.tudai.aw.ms_monopatin.repository.GpsRepository;
 import com.tudai.aw.ms_monopatin.repository.MonopatinRepository;
 
 import jakarta.transaction.Transactional;
@@ -17,28 +14,17 @@ public class MonopatinService {
 	@Autowired
 	private MonopatinRepository monopatinRepository;
 	
-	@Autowired
-	private GpsRepository gpsRepository;
-	
 	@Transactional
-    public MonopatinDTO save(MonopatinDTO dto) throws Exception {	
-        try{
-        	Gps gps = gpsRepository.obtenerPorId(dto.getIdGps()).get();
-    		Monopatin monopatin = new Monopatin(dto.getEstado(), gps, dto.getKilometrosRecorridos());
-    		
-            if(monopatinRepository.save(monopatin) != null) {
-            	return dto;
-            }
-            
-        	return null;
-        	
+    public Monopatin guardar(Monopatin monopatin) throws Exception {	
+        try{    		
+            return monopatinRepository.save(monopatin);       	
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
     }
 	
 	@Transactional
-    public boolean delete(Long id) throws Exception {
+    public boolean eliminar(Long id) throws Exception {
         try{
             if(monopatinRepository.existsById(id)){
             	monopatinRepository.deleteById(id);
@@ -52,23 +38,20 @@ public class MonopatinService {
     }
 	
 	@Transactional
-	public MonopatinDTO obtenerMonopatin(Long id) throws Exception {
+	public Monopatin obtenerMonopatin(Long id) throws Exception {
 		try {
-			Monopatin m = monopatinRepository.findById(id).get();
-			return new MonopatinDTO(m.getEstado(), m.getGps().getId(), m.getKilometrosRecorridos());
+			return monopatinRepository.findById(id).get();
 		}catch (Exception e){
             throw new Exception(e.getMessage());
         }
 	}
 	
 	@Transactional
-    public MonopatinDTO actualizar(MonopatinDTO dto, Long id) throws Exception {
+    public Monopatin actualizar(Monopatin monopatin, Long id) throws Exception {
         try{
-            Monopatin monopatin = monopatinRepository.findById(id).get();
-            Gps gps = gpsRepository.findById(dto.getIdGps()).get();
-            monopatin = monopatinRepository.save(new Monopatin(dto.getEstado(), gps, dto.getKilometrosRecorridos()));   
-            
-            return new MonopatinDTO(monopatin.getEstado(), monopatin.getGps().getId(), monopatin.getKilometrosRecorridos());
+            Monopatin busqueda = monopatinRepository.findById(id).get();
+            busqueda = monopatinRepository.save(monopatin);         
+            return busqueda;
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }

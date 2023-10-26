@@ -15,7 +15,7 @@ public class MantenimientoService {
 	private MantenimientoRepository mantenimientoRepository;
 	
 	@Transactional
-	public Mantenimiento save(Mantenimiento mantenimiento) throws Exception {
+	public Mantenimiento guardar(Mantenimiento mantenimiento) throws Exception {
 		try{
             return mantenimientoRepository.save(mantenimiento);
         }catch (Exception e){

@@ -8,14 +8,18 @@ import lombok.Data;
 @Data
 public class Monopatin implements Serializable {
 	private String estado;
-	private Long idGps;
+	private double latitud;
+	private double longitud;
+	private String gps;
 	private double kilometrosRecorridos;
 	
 	public Monopatin() {}
 	
 	public Monopatin(Monopatin m) {
 		this.estado = m.getEstado();
-		this.idGps = m.getIdGps();
+		this.latitud = m.getLatitud();
+		this.longitud = m.getLongitud();
+		this.gps = m.getGps();
 		this.kilometrosRecorridos = m.getKilometrosRecorridos();
 	}
 }

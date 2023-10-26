@@ -19,9 +19,9 @@ public class MantenimientoController {
 	private MantenimientoService mantenimientoService;
 	
 	@PostMapping("")
-	public ResponseEntity<?> save(@RequestBody Mantenimiento mantenimiento) {
+	public ResponseEntity<?> guardar(@RequestBody Mantenimiento mantenimiento) {
 		try{
-			return ResponseEntity.status(HttpStatus.OK).body(mantenimientoService.save(mantenimiento));
+			return ResponseEntity.status(HttpStatus.OK).body(mantenimientoService.guardar(mantenimiento));
 		}catch (Exception e){
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo guardar el mantenimiento, revise los campos e intente nuevamente.\"}");
 		}

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tudai.aw.ms_administracion.model.clases.Gps;
 import com.tudai.aw.ms_administracion.model.clases.Monopatin;
 import com.tudai.aw.ms_administracion.model.clases.Parada;
 import com.tudai.aw.ms_administracion.service.AdministracionService;
@@ -37,11 +36,6 @@ public class AdministracionController {
 	public ResponseEntity<?> eliminarMonopatin(@PathVariable Long id) {
 		return administracionService.eliminarMonopatin(id);
 	}
-	
-	@PostMapping("/gps")
-    public ResponseEntity<?> agregarGps(@RequestBody Gps gps) {
-        return ResponseEntity.status(HttpStatus.OK).body(administracionService.agregarGps(gps));      
-    }
 	
 	@PostMapping("/paradas")
     public ResponseEntity<?> agregarParada(@RequestBody Parada parada) {

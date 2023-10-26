@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tudai.aw.ms_monopatin.dto.MonopatinDTO;
 import com.tudai.aw.ms_monopatin.model.Monopatin;
 import com.tudai.aw.ms_monopatin.service.MonopatinService;
 
@@ -24,18 +23,18 @@ public class MonopatinController {
 	private MonopatinService monopatinService;
 	
 	@PostMapping("")
-    public ResponseEntity<?> save(@RequestBody MonopatinDTO monopatin) {
+    public ResponseEntity<?> guardar(@RequestBody Monopatin monopatin) {
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(monopatinService.save(monopatin));
+            return ResponseEntity.status(HttpStatus.OK).body(monopatinService.guardar(monopatin));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo guardar el monopatin, revise los campos e intente nuevamente.\"}");
         }
     }
 	
 	@DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
+    public ResponseEntity<?> eliminar(@PathVariable Long id){
         try{
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(monopatinService.delete(id));
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(monopatinService.eliminar(id));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. El monopatin que usted quiere borrar no existe.\"}");
         }
@@ -51,11 +50,11 @@ public class MonopatinController {
 	}
 	
 	@PutMapping("/{id}")
-    public ResponseEntity<?> actualizar(@RequestBody MonopatinDTO monopatin, @PathVariable Long id){
+    public ResponseEntity<?> actualizar(@RequestBody Monopatin monopatin, @PathVariable Long id){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinService.actualizar(monopatin, id));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo editar, revise los campos e intente nuevamente.\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo actualizar el monopatin, revise los campos e intente nuevamente.\"}");
         }
     }
 }

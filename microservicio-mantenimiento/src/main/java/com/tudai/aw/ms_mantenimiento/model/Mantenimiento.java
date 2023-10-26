@@ -1,6 +1,6 @@
 package com.tudai.aw.ms_mantenimiento.model;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,15 +19,14 @@ public class Mantenimiento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable = false)
-	private Date fechaHoraInicio;
+	private LocalDateTime fechaHoraInicio;
 	
-	@Temporal(TemporalType.DATE)
-	@Column(nullable = false)
-	private Date fechaHoraFin;
+	@Temporal(TemporalType.TIMESTAMP)
+	private LocalDateTime fechaHoraFin;
 	
-	@Column(name = "id_monopatin")
+	@Column(name = "id_monopatin", nullable = false)
 	private Long idMonopatin;
 	
 	@Column(nullable = false)
@@ -35,7 +34,7 @@ public class Mantenimiento {
 	
 	public Mantenimiento () {}
 	
-	public Mantenimiento (Date fechaHoraInicio, Date fechaHoraFin, Long idMonopatin, boolean reparado) {
+	public Mantenimiento (LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, Long idMonopatin, boolean reparado) {
 		this.fechaHoraInicio = fechaHoraInicio;
 		this.fechaHoraFin = fechaHoraFin;
 		this.idMonopatin = idMonopatin;
