@@ -41,9 +41,9 @@ public class MonopatinController {
     }
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<?> obtenerMonopatin(@PathVariable Long id) {
+	public ResponseEntity<?> obtenerPorId(@PathVariable Long id) {
 		try{
-            return ResponseEntity.status(HttpStatus.OK).body(monopatinService.obtenerMonopatin(id));
+            return ResponseEntity.status(HttpStatus.OK).body(monopatinService.obtenerPorId(id));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No existe monopatin con el id ingresado, revise el campo e intente nuevamente.\"}");
         }

@@ -23,4 +23,37 @@ public class MantenimientoService {
         }
 	}
 
+	@Transactional
+    public boolean eliminar(Long id) throws Exception {
+        try{
+            if(mantenimientoRepository.existsById(id)){
+            	mantenimientoRepository.deleteById(id);
+                return true;
+            }else{
+                throw new Exception();
+            }
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+	
+	@Transactional
+	public Mantenimiento obtenerPorId(Long id) throws Exception {
+		try {
+			return mantenimientoRepository.findById(id).get();
+		}catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+	}
+	
+	@Transactional
+    public Mantenimiento actualizar(Mantenimiento mantenimiento, Long id) throws Exception {
+        try{
+        	Mantenimiento busqueda = mantenimientoRepository.findById(id).get();
+            busqueda = mantenimientoRepository.save(mantenimiento);         
+            return busqueda;
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
 }

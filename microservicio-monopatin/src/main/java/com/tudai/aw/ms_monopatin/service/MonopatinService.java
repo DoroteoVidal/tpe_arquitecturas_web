@@ -38,7 +38,7 @@ public class MonopatinService {
     }
 	
 	@Transactional
-	public Monopatin obtenerMonopatin(Long id) throws Exception {
+	public Monopatin obtenerPorId(Long id) throws Exception {
 		try {
 			return monopatinRepository.findById(id).get();
 		}catch (Exception e){
