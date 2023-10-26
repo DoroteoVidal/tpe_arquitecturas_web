@@ -1,6 +1,6 @@
 package com.tudai.aw.ms_monopatin.model;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,13 +28,13 @@ public class Viaje {
 	@Column(name = "id_usuario")
 	private Long idUsuario;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable = false)
-	private Date fechaHoraInicio;
+	private LocalDateTime fechaHoraInicio;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable = false)
-	private Date fechaHoraFin;
+	private LocalDateTime fechaHoraFin;
 	
 	@Column(nullable = false)
 	private double kilometrosRecorridos;
@@ -47,7 +47,7 @@ public class Viaje {
 
 	public Viaje() {}
 
-	public Viaje(Monopatin monopatin, Long idUsuario, Date fechaHoraInicio, Date fechaHoraFin, double kilometrosRecorridos, Long tiempoPausa, boolean pausa) {
+	public Viaje(Monopatin monopatin, Long idUsuario, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, double kilometrosRecorridos, Long tiempoPausa, boolean pausa) {
 		super();
 		this.monopatin = monopatin;
 		this.idUsuario = idUsuario;
