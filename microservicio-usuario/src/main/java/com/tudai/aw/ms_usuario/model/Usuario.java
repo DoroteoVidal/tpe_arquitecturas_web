@@ -52,7 +52,6 @@ public class Usuario {
 		this.email = email;
 		this.fechaDeAlta = fechaDeAlta;
 		this.cuentas = new ArrayList<>();
-	}
-	
+	}	
 	
 }
