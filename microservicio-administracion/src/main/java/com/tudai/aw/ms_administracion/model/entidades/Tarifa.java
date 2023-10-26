@@ -25,7 +25,7 @@ public class Tarifa {
 	@Column
 	private double valor;
 	
-	@Column
+	@Column(name = "valor_agregado_por_pausa")
 	private double valorAgregadoPorPausa;
 	
 	@Temporal(TemporalType.TIMESTAMP)
