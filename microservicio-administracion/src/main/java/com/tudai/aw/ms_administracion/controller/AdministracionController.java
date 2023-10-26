@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tudai.aw.ms_administracion.model.clases.Monopatin;
 import com.tudai.aw.ms_administracion.model.clases.Parada;
+import com.tudai.aw.ms_administracion.model.entidades.Administrador;
 import com.tudai.aw.ms_administracion.service.AdministracionService;
 
 @RestController
@@ -22,9 +24,11 @@ public class AdministracionController {
 	@Autowired
 	private AdministracionService administracionService;
 	
+	//ABM monopatines
+	
 	@PostMapping("/monopatines")
-    public ResponseEntity<?> agregarMonopatin(@RequestBody Monopatin monopatin) {
-		return ResponseEntity.status(HttpStatus.OK).body(administracionService.agregarMonopatin(monopatin));       
+    public ResponseEntity<?> guardarMonopatin(@RequestBody Monopatin monopatin) {
+		return ResponseEntity.status(HttpStatus.OK).body(administracionService.guardarMonopatin(monopatin));       
     }
 	
 	@PutMapping("/monopatines/{id}")
@@ -37,10 +41,48 @@ public class AdministracionController {
 		return administracionService.eliminarMonopatin(id);
 	}
 	
+	//ABM paradas
+	
 	@PostMapping("/paradas")
-    public ResponseEntity<?> agregarParada(@RequestBody Parada parada) {
-        return ResponseEntity.status(HttpStatus.OK).body(administracionService.agregarParada(parada));       
+    public ResponseEntity<?> guardarParada(@RequestBody Parada parada) {
+        return ResponseEntity.status(HttpStatus.OK).body(administracionService.guardarParada(parada));       
     }
 	
-	//Agregar metodos propios de administrador get, post, put, delete
+	//ABM administrador
+	
+	@PostMapping("")
+    public ResponseEntity<?> guardar(@RequestBody Administrador administrador) {
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administracionService.guardar(administrador));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo guardar el administrador, revise los campos e intente nuevamente.\"}");
+        }
+    }
+	
+	@DeleteMapping("/{id}")
+    public ResponseEntity<?> eliminar(@PathVariable Long id){
+        try{
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(administracionService.eliminar(id));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. El administrador que usted quiere borrar no existe.\"}");
+        }
+    }
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> obtenerPorId(@PathVariable Long id) {
+		try{
+            return ResponseEntity.status(HttpStatus.OK).body(administracionService.obtenerPorId(id));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No existe administrador con el id ingresado, revise el campo e intente nuevamente.\"}");
+        }
+	}
+	
+	@PutMapping("/{id}")
+    public ResponseEntity<?> actualizar(@RequestBody Administrador administrador, @PathVariable Long id){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administracionService.actualizar(administrador, id));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo actualizar el administrador, revise los campos e intente nuevamente.\"}");
+        }
+    }
 }
