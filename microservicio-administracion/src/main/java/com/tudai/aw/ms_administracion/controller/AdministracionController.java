@@ -31,9 +31,14 @@ public class AdministracionController {
 		return ResponseEntity.status(HttpStatus.OK).body(administracionService.guardarMonopatin(monopatin));       
     }
 	
-	@PutMapping("/monopatines/{id}")
-    public ResponseEntity<?> agregarMonopatinAMantenimiento(@PathVariable Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(administracionService.agregarMonopatinAMantenimiento(id));       
+	@PutMapping("/monopatines/iniciarMantenimiento/{id}")
+    public ResponseEntity<?> iniciarMantenimientoMonopatin(@PathVariable Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(administracionService.iniciarMantenimientoMonopatin(id));       
+    }
+	
+	@PutMapping("/monopatines/finalizarMantenimiento/{id}")
+    public ResponseEntity<?> finalizarMantenimientoMonopatin(@PathVariable Long id) {
+		return ResponseEntity.status(HttpStatus.OK).body(administracionService.finalizarMantenimientoMonopatin(id));       
     }
 	
 	@DeleteMapping("/monopatines/{id}")

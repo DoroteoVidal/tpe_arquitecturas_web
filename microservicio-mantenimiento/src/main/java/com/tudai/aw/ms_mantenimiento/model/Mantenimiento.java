@@ -20,10 +20,11 @@ public class Mantenimiento {
 	private Long id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable = false)
+	@Column(name = "fecha_hora_inicio", nullable = false)
 	private LocalDateTime fechaHoraInicio;
 	
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "fecha_hora_fin")
 	private LocalDateTime fechaHoraFin;
 	
 	@Column(name = "id_monopatin", nullable = false)

@@ -22,6 +22,15 @@ public class MantenimientoController {
 	@Autowired
 	private MantenimientoService mantenimientoService;
 	
+	@GetMapping("/porIdMonopatin/{id}")
+	public ResponseEntity<?> porIdMonopatin(@PathVariable Long id) {
+		try{
+            return ResponseEntity.status(HttpStatus.OK).body(mantenimientoService.obtenerPorIdMonopatin(id));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No existe mantenimiento con el id de monopatin ingresado, revise el campo e intente nuevamente.\"}");
+        }
+	} 
+	
 	@PostMapping("")
 	public ResponseEntity<?> guardar(@RequestBody Mantenimiento mantenimiento) {
 		try{

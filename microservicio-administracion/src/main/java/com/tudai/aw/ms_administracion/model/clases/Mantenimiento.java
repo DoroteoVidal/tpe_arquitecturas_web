@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class Mantenimiento {
+	private Long id;
 	private LocalDateTime fechaHoraInicio;
 	private LocalDateTime fechaHoraFin;
 	private Long idMonopatin;
@@ -14,6 +15,7 @@ public class Mantenimiento {
 	public Mantenimiento() {}
 	
 	public Mantenimiento(Mantenimiento m) {
+		this.id = m.getId();
 		this.fechaHoraInicio = m.getFechaHoraInicio();
 		this.fechaHoraFin = m.getFechaHoraFin();
 		this.idMonopatin = m.getIdMonopatin();

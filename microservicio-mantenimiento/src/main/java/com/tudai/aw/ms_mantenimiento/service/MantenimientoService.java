@@ -14,6 +14,15 @@ public class MantenimientoService {
 	@Autowired
 	private MantenimientoRepository mantenimientoRepository;
 	
+	@Transactional	
+	public Mantenimiento obtenerPorIdMonopatin(Long id) throws Exception {
+		try {
+			return mantenimientoRepository.obtenerPorIdMonopatin(id).get();
+		}catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+	}
+	
 	@Transactional
 	public Mantenimiento guardar(Mantenimiento mantenimiento) throws Exception {
 		try{

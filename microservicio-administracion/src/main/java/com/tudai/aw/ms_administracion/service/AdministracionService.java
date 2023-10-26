@@ -46,7 +46,7 @@ public class AdministracionService {
 		return response;
     }
 
-	public ResponseEntity<?> agregarMonopatinAMantenimiento(Long id) {
+	public ResponseEntity<?> iniciarMantenimientoMonopatin(Long id) {
 		HttpHeaders headers = new HttpHeaders();
 		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 		
@@ -64,8 +64,7 @@ public class AdministracionService {
 				this.agregarMantenimiento(id);
 				monopatin.setEstado("en mantenimiento");
 				
-				HttpEntity<Monopatin> requestEntity2 = new HttpEntity<>(monopatin, headers);
-				
+				HttpEntity<Monopatin> requestEntity2 = new HttpEntity<>(monopatin, headers);			
 				ResponseEntity<Monopatin> response2 = restTemplate.exchange(
 						"http://localhost:8011/monopatines/" + id,
 						HttpMethod.PUT,
@@ -77,7 +76,7 @@ public class AdministracionService {
 			}
 		}
 		
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el monopatin que quiere agregar a mantenimiento");
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el monopatin con id: " + id);
 	}
 
 	private ResponseEntity<?> agregarMantenimiento(Long id) {
@@ -89,8 +88,7 @@ public class AdministracionService {
 		mantenimiento.setIdMonopatin(id);	
 		mantenimiento.setReparado(false);
 		
-		HttpEntity<Mantenimiento> requestEntity = new HttpEntity<>(mantenimiento, headers);
-		
+		HttpEntity<Mantenimiento> requestEntity = new HttpEntity<>(mantenimiento, headers);		
 		ResponseEntity<Mantenimiento> response = restTemplate.exchange(
 				"http://localhost:8041/mantenimientos",
 				HttpMethod.POST,
@@ -100,11 +98,74 @@ public class AdministracionService {
 		
 		return response;
 	}
-
-	public ResponseEntity<?> eliminarMonopatin(Long id) {
+	
+	public ResponseEntity<?> finalizarMantenimientoMonopatin(Long id) {
 		HttpHeaders headers = new HttpHeaders();
 		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 		
+		ResponseEntity<Monopatin> response = restTemplate.exchange(
+				"http://localhost:8011/monopatines/" + id, 
+				HttpMethod.GET, 
+				requestEntity, 
+				new ParameterizedTypeReference<Monopatin>() {} 
+		);
+		
+		if(response.getStatusCode().is2xxSuccessful()) {
+			Monopatin monopatin = response.getBody();
+			
+			if(monopatin.getEstado().equals("en mantenimiento")) {
+				this.agregarFechaFinMantenimiento(id);
+				monopatin.setEstado("disponible");
+				
+				HttpEntity<Monopatin> requestEntity2 = new HttpEntity<>(monopatin, headers);				
+				ResponseEntity<Monopatin> response2 = restTemplate.exchange(
+						"http://localhost:8011/monopatines/" + id,
+						HttpMethod.PUT,
+						requestEntity2,
+						new ParameterizedTypeReference<Monopatin>() {}
+				);			
+				return response2;
+			}else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El monopatin con id: " + id + " no se encuentra en mantenimiento");
+			}
+		}
+		
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el monopatin con id: " + id);
+	}
+	
+	private ResponseEntity<?> agregarFechaFinMantenimiento(Long id) {
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+		
+		ResponseEntity<Mantenimiento> response = restTemplate.exchange(
+				"http://localhost:8041/mantenimientos/porIdMonopatin/" + id, 
+				HttpMethod.GET, 
+				requestEntity, 
+				new ParameterizedTypeReference<Mantenimiento>() {} 
+		);
+		
+		if(response.getStatusCode().is2xxSuccessful()) {
+			Mantenimiento mantenimiento = response.getBody();
+			mantenimiento.setFechaHoraFin(LocalDateTime.now());
+			mantenimiento.setReparado(true);
+			
+			HttpEntity<Mantenimiento> requestEntity2 = new HttpEntity<>(mantenimiento, headers);		
+			ResponseEntity<Mantenimiento> response2 = restTemplate.exchange(
+					"http://localhost:8041/mantenimientos/" + mantenimiento.getId(),
+					HttpMethod.PUT,
+					requestEntity2,
+					new ParameterizedTypeReference<Mantenimiento>() {}
+			);
+			
+			return response2;
+		}
+		
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el mantenimiento con el id: " + id);
+	}
+
+	public ResponseEntity<?> eliminarMonopatin(Long id) {
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);		
 		ResponseEntity<String> response = restTemplate.exchange(
 				"http://localhost:8011/monopatines/" + id,
 				HttpMethod.DELETE,
