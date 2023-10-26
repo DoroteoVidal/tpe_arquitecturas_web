@@ -50,7 +50,13 @@ public class UsuarioService {
     public Usuario actualizar(Usuario usuario, Long id) throws Exception {
         try{
         	Usuario busqueda = usuarioRepository.findById(id).get();
-            busqueda = usuarioRepository.save(usuario);         
+            
+        	busqueda.setNombre(usuario.getNombre());
+        	busqueda.setApellido(usuario.getApellido());
+        	busqueda.setTelefono(usuario.getTelefono());
+        	busqueda.setEmail(usuario.getEmail());
+        	busqueda.setFechaDeAlta(usuario.getFechaDeAlta());
+        	
             return busqueda;
         }catch (Exception e){
             throw new Exception(e.getMessage());

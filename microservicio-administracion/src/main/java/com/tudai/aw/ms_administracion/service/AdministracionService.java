@@ -15,6 +15,10 @@ import org.springframework.web.client.RestTemplate;
 import com.tudai.aw.ms_administracion.model.clases.Mantenimiento;
 import com.tudai.aw.ms_administracion.model.clases.Monopatin;
 import com.tudai.aw.ms_administracion.model.clases.Parada;
+import com.tudai.aw.ms_administracion.model.entidades.Administrador;
+import com.tudai.aw.ms_administracion.repository.AdministracionRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service("AdministracionService")
 public class AdministracionService {
@@ -22,7 +26,12 @@ public class AdministracionService {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-    public ResponseEntity<?> agregarMonopatin(Monopatin monopatin) {
+	@Autowired
+	private AdministracionRepository administracionRepository;
+	
+	//ABM monopatines
+	
+    public ResponseEntity<?> guardarMonopatin(Monopatin monopatin) {
     	HttpHeaders headers = new HttpHeaders();
     	Monopatin monopatinNuevo = new Monopatin(monopatin);
 		HttpEntity<Monopatin> requestEntity = new HttpEntity<>(monopatinNuevo, headers);
@@ -109,9 +118,59 @@ public class AdministracionService {
 		
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el monopatin que quiere eliminar");
 	}
+	
+	//ABM paradas
 
-	public ResponseEntity<?> agregarParada(Parada parada) {
+	public ResponseEntity<?> guardarParada(Parada parada) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	//ABM administrador
+	
+	@Transactional
+    public Administrador guardar(Administrador admin) throws Exception {	
+        try{    		
+            return administracionRepository.save(admin);       	
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+	
+	@Transactional
+    public boolean eliminar(Long id) throws Exception {
+        try{
+            if(administracionRepository.existsById(id)){
+            	administracionRepository.deleteById(id);
+                return true;
+            }else{
+                throw new Exception();
+            }
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+	
+	@Transactional
+	public Administrador obtenerPorId(Long id) throws Exception {
+		try {
+			return administracionRepository.findById(id).get();
+		}catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+	}
+	
+	@Transactional
+    public Administrador actualizar(Administrador admin, Long id) throws Exception {
+        try{
+        	Administrador busqueda = administracionRepository.findById(id).get();
+            
+        	busqueda.setNombre(admin.getNombre());
+        	busqueda.setRol(admin.getRol());
+        	
+            return busqueda;
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
 }

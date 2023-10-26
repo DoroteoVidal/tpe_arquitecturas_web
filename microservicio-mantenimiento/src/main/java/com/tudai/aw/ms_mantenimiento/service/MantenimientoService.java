@@ -50,7 +50,12 @@ public class MantenimientoService {
     public Mantenimiento actualizar(Mantenimiento mantenimiento, Long id) throws Exception {
         try{
         	Mantenimiento busqueda = mantenimientoRepository.findById(id).get();
-            busqueda = mantenimientoRepository.save(mantenimiento);         
+            
+        	busqueda.setFechaHoraInicio(mantenimiento.getFechaHoraInicio());
+        	busqueda.setFechaHoraFin(mantenimiento.getFechaHoraFin());
+        	busqueda.setIdMonopatin(mantenimiento.getIdMonopatin());
+        	busqueda.setReparado(mantenimiento.isReparado());
+        	
             return busqueda;
         }catch (Exception e){
             throw new Exception(e.getMessage());

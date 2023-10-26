@@ -50,7 +50,10 @@ public class CuentaService {
     public Cuenta actualizar(Cuenta cuenta, Long id) throws Exception {
         try{
         	Cuenta busqueda = cuentaRepository.findById(id).get();
-            busqueda = cuentaRepository.save(cuenta);         
+            
+        	busqueda.setDinero(cuenta.getDinero());
+        	busqueda.setUsuario(cuenta.getUsuario());
+        	
             return busqueda;
         }catch (Exception e){
             throw new Exception(e.getMessage());

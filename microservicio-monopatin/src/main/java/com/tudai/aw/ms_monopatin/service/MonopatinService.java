@@ -50,7 +50,13 @@ public class MonopatinService {
     public Monopatin actualizar(Monopatin monopatin, Long id) throws Exception {
         try{
             Monopatin busqueda = monopatinRepository.findById(id).get();
-            busqueda = monopatinRepository.save(monopatin);         
+            
+            busqueda.setEstado(monopatin.getEstado()); 
+            busqueda.setLatitud(monopatin.getLatitud());
+            busqueda.setLongitud(monopatin.getLongitud());
+            busqueda.setGps(monopatin.getGps());
+            busqueda.setKilometrosRecorridos(monopatin.getKilometrosRecorridos());
+            
             return busqueda;
         }catch (Exception e){
             throw new Exception(e.getMessage());

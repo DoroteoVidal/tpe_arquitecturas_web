@@ -47,10 +47,14 @@ public class ParadaService {
 	}
 	
 	@Transactional
-    public Parada actualizar(Parada monopatin, Long id) throws Exception {
+    public Parada actualizar(Parada parada, Long id) throws Exception {
         try{
         	Parada busqueda = paradaRepository.findById(id).get();
-            busqueda = paradaRepository.save(monopatin);         
+            
+        	busqueda.setLatitud(parada.getLatitud());
+        	busqueda.setLongitud(parada.getLongitud());
+        	busqueda.setNombre(parada.getNombre());
+        	
             return busqueda;
         }catch (Exception e){
             throw new Exception(e.getMessage());
