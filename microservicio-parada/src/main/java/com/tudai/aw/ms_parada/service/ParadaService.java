@@ -15,9 +15,43 @@ public class ParadaService {
 	private ParadaRepository paradaRepository;
 	
 	@Transactional
-    public Parada save(Parada parada) throws Exception {
+    public Parada guardar(Parada parada) throws Exception {
         try{
             return paradaRepository.save(parada);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+	
+	@Transactional
+    public boolean eliminar(Long id) throws Exception {
+        try{
+            if(paradaRepository.existsById(id)){
+            	paradaRepository.deleteById(id);
+                return true;
+            }else{
+                throw new Exception();
+            }
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+	
+	@Transactional
+	public Parada obtenerPorId(Long id) throws Exception {
+		try {
+			return paradaRepository.findById(id).get();
+		}catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+	}
+	
+	@Transactional
+    public Parada actualizar(Parada monopatin, Long id) throws Exception {
+        try{
+        	Parada busqueda = paradaRepository.findById(id).get();
+            busqueda = paradaRepository.save(monopatin);         
+            return busqueda;
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
