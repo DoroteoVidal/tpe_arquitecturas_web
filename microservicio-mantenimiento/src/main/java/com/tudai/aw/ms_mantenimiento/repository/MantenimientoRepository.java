@@ -9,7 +9,7 @@ import com.tudai.aw.ms_mantenimiento.model.Mantenimiento;
 
 public interface MantenimientoRepository extends JpaRepository<Mantenimiento, Long> {
 	
-	@Query("SELECT m FROM Mantenimiento m WHERE m.idMonopatin = :id")
+	@Query("SELECT m FROM Mantenimiento m WHERE m.idMonopatin = :id AND m.reparado = false")
 	public Optional<Mantenimiento> obtenerPorIdMonopatin(Long id);
 
 }
