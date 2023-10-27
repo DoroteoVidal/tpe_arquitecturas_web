@@ -46,12 +46,39 @@ public class AdministracionController {
 		return administracionService.eliminarMonopatin(id);
 	}
 	
+	@GetMapping("monopatines/reportesPorKm/{km1}/a/{km2}")
+	public ResponseEntity<?> generarReportesDeMonopatinesPorKm(@PathVariable double km1, @PathVariable double km2) {
+		return ResponseEntity.status(HttpStatus.OK).body(administracionService.generarReportesDeMonopatinesPorKm(km1, km2));  
+	}
+	
+	@GetMapping("monopatines/reportesPorTiempoConPausa")
+	public ResponseEntity<?> generarReportesDeMonopatinesPorTiempoConPausa() {
+		return ResponseEntity.status(HttpStatus.OK).body(administracionService.generarReportesDeMonopatinesPorTiempoConPausa());  
+	}
+	
+	@GetMapping("monopatines/reportesPorTiempoSinPausa")
+	public ResponseEntity<?> generarReportesDeMonopatinesPorTiempoSinPausa() {
+		return ResponseEntity.status(HttpStatus.OK).body(administracionService.generarReportesDeMonopatinesPorTiempoSinPausa());  
+	}
+	
 	//ABM paradas
 	
 	@PostMapping("/paradas")
     public ResponseEntity<?> guardarParada(@RequestBody Parada parada) {
         return ResponseEntity.status(HttpStatus.OK).body(administracionService.guardarParada(parada));       
     }
+	
+	@DeleteMapping("/paradas/{id}")
+	public ResponseEntity<?> eliminarParada(@PathVariable Long id) {
+		return administracionService.eliminarParada(id);
+	}
+	
+	//ABM usuarios
+	
+	@DeleteMapping("/cuentas/{id}")
+	public ResponseEntity<?> eliminarCuenta(@PathVariable Long id) {
+		return administracionService.eliminarCuenta(id);
+	}
 	
 	//ABM administrador
 	

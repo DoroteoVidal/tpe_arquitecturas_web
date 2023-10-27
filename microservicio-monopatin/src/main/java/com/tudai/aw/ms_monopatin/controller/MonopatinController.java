@@ -22,6 +22,33 @@ public class MonopatinController {
 	@Autowired
 	private MonopatinService monopatinService;
 	
+	@GetMapping("/reportesPorKm/{km1}/a/{km2}")
+	public ResponseEntity<?> obtenerMonopatinesConRecorridosEntre(@PathVariable double km1, @PathVariable double km2) {
+		try{
+            return ResponseEntity.status(HttpStatus.OK).body(monopatinService.obtenerMonopatinesConRecorridosEntre(km1, km2));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No existen monopatines con recorridos entre los valores ingresados, revise los campos e intente nuevamente.\"}");
+        }
+	}
+	
+	@GetMapping("/reportesPorTiempoConPausa")
+	public ResponseEntity<?> obtenerMonopatinesConTiempoConPausa() {
+		try{
+            return ResponseEntity.status(HttpStatus.OK).body(monopatinService.obtenerMonopatinesConTiempoConPausa());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No existen monopatines con tiempos con pausa, por favor intente más tarde.\"}");
+        }
+	}
+	
+	@GetMapping("/reportesPorTiempoSinPausa")
+	public ResponseEntity<?> obtenerMonopatinesConTiempoSinPausa() {
+		try{
+            return ResponseEntity.status(HttpStatus.OK).body(monopatinService.obtenerMonopatinesConTiempoSinPausa());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No existen monopatines con tiempos sin pausa, por favor intente más tarde.\"}");
+        }
+	}
+	
 	@PostMapping("")
     public ResponseEntity<?> guardar(@RequestBody Monopatin monopatin) {
         try{

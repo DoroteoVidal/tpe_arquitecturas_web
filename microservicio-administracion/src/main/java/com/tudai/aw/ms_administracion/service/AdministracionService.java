@@ -1,6 +1,7 @@
 package com.tudai.aw.ms_administracion.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -76,7 +77,8 @@ public class AdministracionService {
 			}
 		}
 		
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el monopatin con id: " + id);
+		//return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el monopatin con id: " + id);
+		return response;
 	}
 
 	private ResponseEntity<?> agregarMantenimiento(Long id) {
@@ -130,7 +132,7 @@ public class AdministracionService {
 			}
 		}
 		
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el monopatin con id: " + id);
+		return response;
 	}
 	
 	private ResponseEntity<?> agregarFechaFinMantenimiento(Long id) {
@@ -160,7 +162,8 @@ public class AdministracionService {
 			return response2;
 		}
 		
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el mantenimiento con el id: " + id);
+		//return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el mantenimiento con el id: " + id);
+		return response;
 	}
 
 	public ResponseEntity<?> eliminarMonopatin(Long id) {
@@ -173,18 +176,106 @@ public class AdministracionService {
 				String.class
 		);
 		
-		if(response != null) {
-			return ResponseEntity.ok("Se elimino el monopatin con exito");
+		if(response.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
+			return ResponseEntity.ok("El monopatin con id: " + id + " fue eliminado con exito");
 		}
 		
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el monopatin que quiere eliminar");
+		return response;
+	}
+	
+	public List<Monopatin> generarReportesDeMonopatinesPorKm(double km1, double km2) {
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+		
+		ResponseEntity<List<Monopatin>> response = restTemplate.exchange(
+				"http://localhost:8011/monopatines/reportesPorKm/" + km1 + "/a/" + km2, 
+				HttpMethod.GET, 
+				requestEntity, 
+				new ParameterizedTypeReference<List<Monopatin>>() {} 
+		);
+		
+		return response.getBody();
+	}
+	
+	public List<Monopatin> generarReportesDeMonopatinesPorTiempoConPausa() {
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+		
+		ResponseEntity<List<Monopatin>> response = restTemplate.exchange(
+				"http://localhost:8011/monopatines/reportesPorTiempoConPausa", 
+				HttpMethod.GET, 
+				requestEntity, 
+				new ParameterizedTypeReference<List<Monopatin>>() {} 
+		);
+		
+		return response.getBody();
+	}
+	
+	public List<Monopatin> generarReportesDeMonopatinesPorTiempoSinPausa() {
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+		
+		ResponseEntity<List<Monopatin>> response = restTemplate.exchange(
+				"http://localhost:8011/monopatines/reportesPorTiempoSinPausa", 
+				HttpMethod.GET, 
+				requestEntity, 
+				new ParameterizedTypeReference<List<Monopatin>>() {} 
+		);
+		
+		return response.getBody();
 	}
 	
 	//ABM paradas
 
 	public ResponseEntity<?> guardarParada(Parada parada) {
-		// TODO Auto-generated method stub
-		return null;
+		HttpHeaders headers = new HttpHeaders();
+    	Parada paradaNueva = new Parada(parada);
+		HttpEntity<Parada> requestEntity = new HttpEntity<>(paradaNueva, headers);
+		
+		ResponseEntity<Parada> response = restTemplate.exchange(
+				"http://localhost:8021/paradas",
+				HttpMethod.POST,
+				requestEntity,
+				new ParameterizedTypeReference<Parada>() {}
+		);
+		
+		return response;
+	}
+	
+	public ResponseEntity<?> eliminarParada(Long id) {
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);		
+		ResponseEntity<String> response = restTemplate.exchange(
+				"http://localhost:8021/paradas/" + id,
+				HttpMethod.DELETE,
+				requestEntity,
+				String.class
+		);
+		
+		if(response != null) {
+			return ResponseEntity.ok("La parada con id: " + id + " fue eliminada con exito");
+		}
+		
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro parada con id: " + id);
+	}
+	
+	//ABM usuarios
+	
+	public ResponseEntity<?> eliminarCuenta(Long id) {
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);		
+		ResponseEntity<String> response = restTemplate.exchange(
+				"http://localhost:8001/cuentas/" + id,
+				HttpMethod.DELETE,
+				requestEntity,
+				String.class
+		);
+		
+		if(response != null) {
+			return ResponseEntity.ok("La cuenta con id: " + id + " fue eliminada con exito");
+		}
+		
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro cuenta con id: " + id);
 	}
 	
 	//ABM administrador

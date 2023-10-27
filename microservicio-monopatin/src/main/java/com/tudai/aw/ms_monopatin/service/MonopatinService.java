@@ -1,5 +1,7 @@
 package com.tudai.aw.ms_monopatin.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,33 @@ public class MonopatinService {
 	
 	@Autowired
 	private MonopatinRepository monopatinRepository;
+	
+	@Transactional
+	public List<Monopatin> obtenerMonopatinesConRecorridosEntre(double km1, double km2) throws Exception {
+		try{    		
+            return monopatinRepository.obtenerMonopatinesConRecorridosEntre(km1, km2);       	
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+	}
+	
+	@Transactional
+	public List<Monopatin> obtenerMonopatinesConTiempoConPausa() throws Exception {
+		try{    		
+            return monopatinRepository.obtenerMonopatinesConTiempoConPausa();       	
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+	}
+	
+	@Transactional
+	public List<Monopatin> obtenerMonopatinesConTiempoSinPausa() throws Exception {
+		try{    		
+            return monopatinRepository.obtenerMonopatinesConTiempoSinPausa();       	
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+	}
 	
 	@Transactional
     public Monopatin guardar(Monopatin monopatin) throws Exception {	
