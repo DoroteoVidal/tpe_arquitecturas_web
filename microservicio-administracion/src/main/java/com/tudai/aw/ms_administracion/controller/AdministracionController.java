@@ -61,6 +61,11 @@ public class AdministracionController {
 		return ResponseEntity.status(HttpStatus.OK).body(administracionService.generarReportesDeMonopatinesPorTiempoSinPausa());  
 	}
 	
+	@GetMapping("monopatines/cantidadDeViajes/{viajes}/anio/{anio}")
+	public ResponseEntity<?> obtenerMonopatinesConViajesPorAnio(@PathVariable int viajes, @PathVariable int anio) {
+		return ResponseEntity.status(HttpStatus.OK).body(administracionService.obtenerMonopatinesConViajesPorAnio(viajes, anio));  
+	}
+	
 	//ABM paradas
 	
 	@PostMapping("/paradas")

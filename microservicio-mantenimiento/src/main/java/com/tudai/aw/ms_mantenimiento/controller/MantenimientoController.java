@@ -22,6 +22,11 @@ public class MantenimientoController {
 	@Autowired
 	private MantenimientoService mantenimientoService;
 	
+	@GetMapping("/monopatines/reportePorKm/{pausa}")
+	public ResponseEntity<?> generarReporteMonopatinPorKm(@PathVariable int pausa) {
+		return ResponseEntity.status(HttpStatus.OK).body(mantenimientoService.generarReporteMonopatinPorKm(pausa));
+	}
+	
 	@GetMapping("/porIdMonopatin/{id}")
 	public ResponseEntity<?> porIdMonopatin(@PathVariable Long id) {
 		try{

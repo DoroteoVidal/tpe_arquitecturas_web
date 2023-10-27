@@ -1,10 +1,13 @@
 package com.tudai.aw.ms_monopatin.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tudai.aw.ms_monopatin.dto.MonopatinConViajesDto;
+import com.tudai.aw.ms_monopatin.dto.MonopatinDto;
 import com.tudai.aw.ms_monopatin.model.Monopatin;
 import com.tudai.aw.ms_monopatin.repository.MonopatinRepository;
 
@@ -17,27 +20,39 @@ public class MonopatinService {
 	private MonopatinRepository monopatinRepository;
 	
 	@Transactional
-	public List<Monopatin> obtenerMonopatinesConRecorridosEntre(double km1, double km2) throws Exception {
+	public List<MonopatinConViajesDto> obtenerConViajesPorAnio(int viajes, Long anio) throws Exception {
 		try{    		
-            return monopatinRepository.obtenerMonopatinesConRecorridosEntre(km1, km2);       	
+            var result = monopatinRepository.obtenerConViajesPorAnio(viajes, anio);
+            return result.stream().map(m -> new MonopatinConViajesDto((Long)m[0], (int)m[1], (Long)m[2])).collect(Collectors.toList());
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
 	}
 	
 	@Transactional
-	public List<Monopatin> obtenerMonopatinesConTiempoConPausa() throws Exception {
+	public List<Monopatin> obtenerConRecorridosEntre(double km1, double km2) throws Exception {
 		try{    		
-            return monopatinRepository.obtenerMonopatinesConTiempoConPausa();       	
+            return monopatinRepository.obtenerConRecorridosEntre(km1, km2);       	
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
 	}
 	
 	@Transactional
-	public List<Monopatin> obtenerMonopatinesConTiempoSinPausa() throws Exception {
+	public List<MonopatinDto> obtenerConTiempoConPausa() throws Exception {
 		try{    		
-            return monopatinRepository.obtenerMonopatinesConTiempoSinPausa();       	
+            var result = monopatinRepository.obtenerConTiempoConPausa();
+            return result.stream().map(m -> new MonopatinDto((Long)m[0], (double)m[1], (Long)m[2])).collect(Collectors.toList());
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+	}
+	
+	@Transactional
+	public List<MonopatinDto> obtenerConTiempoSinPausa() throws Exception {
+		try{    		
+			var result = monopatinRepository.obtenerConTiempoSinPausa();
+            return result.stream().map(m -> new MonopatinDto((Long)m[0], (double)m[1])).collect(Collectors.toList());      	
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }

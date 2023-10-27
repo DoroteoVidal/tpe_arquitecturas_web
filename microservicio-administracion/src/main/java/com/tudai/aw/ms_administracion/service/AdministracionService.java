@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import com.tudai.aw.ms_administracion.model.clases.Mantenimiento;
 import com.tudai.aw.ms_administracion.model.clases.Monopatin;
 import com.tudai.aw.ms_administracion.model.clases.Parada;
+import com.tudai.aw.ms_administracion.model.dto.MonopatinDto;
 import com.tudai.aw.ms_administracion.model.entidades.Administrador;
 import com.tudai.aw.ms_administracion.repository.AdministracionRepository;
 
@@ -76,7 +77,7 @@ public class AdministracionService {
 				return response2;
 			}
 		}
-		
+		//Tira error cuando no existe un monopatin...
 		//return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el monopatin con id: " + id);
 		return response;
 	}
@@ -176,14 +177,14 @@ public class AdministracionService {
 				String.class
 		);
 		
-		if(response.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
+		if(response != null) {
 			return ResponseEntity.ok("El monopatin con id: " + id + " fue eliminado con exito");
 		}
 		
-		return response;
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro monopatin con id: " + id);
 	}
 	
-	public List<Monopatin> generarReportesDeMonopatinesPorKm(double km1, double km2) {
+	public ResponseEntity<?> generarReportesDeMonopatinesPorKm(double km1, double km2) {
 		HttpHeaders headers = new HttpHeaders();
 		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 		
@@ -194,35 +195,39 @@ public class AdministracionService {
 				new ParameterizedTypeReference<List<Monopatin>>() {} 
 		);
 		
-		return response.getBody();
+		return response;
 	}
 	
-	public List<Monopatin> generarReportesDeMonopatinesPorTiempoConPausa() {
+	public ResponseEntity<?> generarReportesDeMonopatinesPorTiempoConPausa() {
 		HttpHeaders headers = new HttpHeaders();
 		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 		
-		ResponseEntity<List<Monopatin>> response = restTemplate.exchange(
+		ResponseEntity<List<MonopatinDto>> response = restTemplate.exchange(
 				"http://localhost:8011/monopatines/reportesPorTiempoConPausa", 
 				HttpMethod.GET, 
 				requestEntity, 
-				new ParameterizedTypeReference<List<Monopatin>>() {} 
+				new ParameterizedTypeReference<List<MonopatinDto>>() {} 
 		);
 		
-		return response.getBody();
+		return response;
 	}
 	
-	public List<Monopatin> generarReportesDeMonopatinesPorTiempoSinPausa() {
+	public ResponseEntity<?> generarReportesDeMonopatinesPorTiempoSinPausa() {
 		HttpHeaders headers = new HttpHeaders();
 		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 		
-		ResponseEntity<List<Monopatin>> response = restTemplate.exchange(
+		ResponseEntity<List<MonopatinDto>> response = restTemplate.exchange(
 				"http://localhost:8011/monopatines/reportesPorTiempoSinPausa", 
 				HttpMethod.GET, 
 				requestEntity, 
-				new ParameterizedTypeReference<List<Monopatin>>() {} 
+				new ParameterizedTypeReference<List<MonopatinDto>>() {} 
 		);
 		
-		return response.getBody();
+		return response;
+	}
+	
+	public ResponseEntity<?> obtenerMonopatinesConViajesPorAnio(int viajes, int anio) {
+		return null;
 	}
 	
 	//ABM paradas
