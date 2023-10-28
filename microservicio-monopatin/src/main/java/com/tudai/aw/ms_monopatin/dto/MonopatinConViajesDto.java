@@ -5,12 +5,12 @@ import lombok.Getter;
 @Getter
 public class MonopatinConViajesDto {
 	private Long id;
-	private int cantViajes;
+	private Long cantViajes;
 	private Long anio;
 	
 	public MonopatinConViajesDto() {}
 	
-	public MonopatinConViajesDto(Long id, int cantViajes, Long anio) {
+	public MonopatinConViajesDto(Long id, Long cantViajes, Long anio) {
 		super();
 		this.id = id;
 		this.cantViajes = cantViajes;

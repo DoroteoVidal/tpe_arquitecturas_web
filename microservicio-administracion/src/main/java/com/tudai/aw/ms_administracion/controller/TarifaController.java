@@ -20,7 +20,7 @@ import com.tudai.aw.ms_administracion.service.TarifaService;
 public class TarifaController {
 	
 	@Autowired
-	private TarifaService tarifaService;
+	private TarifaService tarifaService;		
 	
 	@PostMapping("")
 	public ResponseEntity<?> guardar(@RequestBody Tarifa tarifa) {

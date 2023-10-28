@@ -56,7 +56,7 @@ public class AdministracionService {
 				"http://localhost:8011/monopatines/" + id, 
 				HttpMethod.GET, 
 				requestEntity, 
-				new ParameterizedTypeReference<Monopatin>() {} //convierte en Json
+				new ParameterizedTypeReference<Monopatin>() {}
 		);
 		
 		if(response.getStatusCode().is2xxSuccessful()) {
@@ -78,8 +78,7 @@ public class AdministracionService {
 			}
 		}
 		//Tira error cuando no existe un monopatin...
-		//return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el monopatin con id: " + id);
-		return response;
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el monopatin con id: " + id);
 	}
 
 	private ResponseEntity<?> agregarMantenimiento(Long id) {
@@ -163,8 +162,7 @@ public class AdministracionService {
 			return response2;
 		}
 		
-		//return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el mantenimiento con el id: " + id);
-		return response;
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el mantenimiento con el id: " + id);
 	}
 
 	public ResponseEntity<?> eliminarMonopatin(Long id) {
@@ -266,21 +264,8 @@ public class AdministracionService {
 	
 	//ABM usuarios
 	
-	public ResponseEntity<?> eliminarCuenta(Long id) {
-		HttpHeaders headers = new HttpHeaders();
-		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);		
-		ResponseEntity<String> response = restTemplate.exchange(
-				"http://localhost:8001/cuentas/" + id,
-				HttpMethod.DELETE,
-				requestEntity,
-				String.class
-		);
-		
-		if(response != null) {
-			return ResponseEntity.ok("La cuenta con id: " + id + " fue eliminada con exito");
-		}
-		
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro cuenta con id: " + id);
+	public ResponseEntity<?> anularCuenta(Long id) {
+		return null;
 	}
 	
 	//ABM administrador

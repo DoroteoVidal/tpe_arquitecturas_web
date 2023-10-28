@@ -16,6 +16,7 @@ import com.tudai.aw.ms_administracion.model.clases.Monopatin;
 import com.tudai.aw.ms_administracion.model.clases.Parada;
 import com.tudai.aw.ms_administracion.model.entidades.Administrador;
 import com.tudai.aw.ms_administracion.service.AdministracionService;
+import com.tudai.aw.ms_administracion.service.TarifaService;
 
 @RestController
 @RequestMapping("administradores")
@@ -23,6 +24,9 @@ public class AdministracionController {
 	
 	@Autowired
 	private AdministracionService administracionService;
+	
+	@Autowired
+	private TarifaService tarifaService;
 	
 	//ABM monopatines
 	
@@ -66,6 +70,12 @@ public class AdministracionController {
 		return ResponseEntity.status(HttpStatus.OK).body(administracionService.obtenerMonopatinesConViajesPorAnio(viajes, anio));  
 	}
 	
+	@GetMapping("/tarifas/totalFacturadoDe/{mes1}/a/{mes2}/enAnio/{anio}")
+	public ResponseEntity<?> obtenerFacturacionEntreLosMeses(@PathVariable int mes1, @PathVariable int mes2, @PathVariable int anio) {
+		return ResponseEntity.status(HttpStatus.OK).body(tarifaService.obtenerFacturacionEntreLosMeses(mes1, mes2, anio));
+	}
+	
+	
 	//ABM paradas
 	
 	@PostMapping("/paradas")
@@ -81,8 +91,8 @@ public class AdministracionController {
 	//ABM usuarios
 	
 	@DeleteMapping("/cuentas/{id}")
-	public ResponseEntity<?> eliminarCuenta(@PathVariable Long id) {
-		return administracionService.eliminarCuenta(id);
+	public ResponseEntity<?> anularCuenta(@PathVariable Long id) {
+		return administracionService.anularCuenta(id);
 	}
 	
 	//ABM administrador

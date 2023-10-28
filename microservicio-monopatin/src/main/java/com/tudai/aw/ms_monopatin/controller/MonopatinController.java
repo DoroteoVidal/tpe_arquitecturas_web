@@ -22,8 +22,11 @@ public class MonopatinController {
 	@Autowired
 	private MonopatinService monopatinService;
 	
+	/*
+	 * Error, no devuelve los monopatines.
+	 * */
 	@GetMapping("/conViajes/{viajes}/anio/{anio}")
-	public ResponseEntity<?> obtenerConViajesPorAnio(@PathVariable int viajes, @PathVariable Long anio) {
+	public ResponseEntity<?> obtenerConViajesPorAnio(@PathVariable int viajes, @PathVariable int anio) {
 		try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinService.obtenerConViajesPorAnio(viajes, anio));
         }catch (Exception e){

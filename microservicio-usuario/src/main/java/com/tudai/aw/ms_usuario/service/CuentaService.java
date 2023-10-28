@@ -53,6 +53,7 @@ public class CuentaService {
             
         	busqueda.setDinero(cuenta.getDinero());
         	busqueda.setUsuario(cuenta.getUsuario());
+        	busqueda.setEstado(cuenta.getEstado());
         	
             return busqueda;
         }catch (Exception e){

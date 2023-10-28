@@ -24,13 +24,17 @@ public class Cuenta {
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
+	
+	@Column(nullable = false)
+	private String estado; //habilitada, anulada
 
 	public Cuenta() {}
 
-	public Cuenta(double dinero, Usuario usuario) {
+	public Cuenta(double dinero, Usuario usuario, String estado) {
 		super();
 		this.dinero = dinero;	
 		this.usuario = usuario;
+		this.estado = estado;
 	}	
 	
 }
