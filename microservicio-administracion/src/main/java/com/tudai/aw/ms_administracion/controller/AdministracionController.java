@@ -75,6 +75,10 @@ public class AdministracionController {
 		return ResponseEntity.status(HttpStatus.OK).body(tarifaService.obtenerFacturacionEntreLosMeses(mes1, mes2, anio));
 	}
 	
+	@GetMapping("/monopatines/cantidadMonopatines")
+	public ResponseEntity<?> obtenerCantidadMonopatinesOperandoYEnMantenimiento() {
+		return ResponseEntity.status(HttpStatus.OK).body(administracionService.obtenerCantidadMonopatinesOperandoYEnMantenimiento());  
+	}
 	
 	//ABM paradas
 	

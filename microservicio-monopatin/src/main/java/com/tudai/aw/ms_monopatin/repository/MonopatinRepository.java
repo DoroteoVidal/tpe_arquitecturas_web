@@ -28,5 +28,8 @@ public interface MonopatinRepository extends JpaRepository<Monopatin, Long> {
 			+ "GROUP BY m.id, year(v.fecha_hora_fin) "
 			+ "HAVING COUNT(*) > :viajes", nativeQuery = true)
 	public List<Object[]> obtenerConViajesPorAnio(int viajes, int anio);
+	
+	@Query("SELECT COUNT(m) FROM Monopatin m WHERE m.estado = :estado")
+	public Long obtenerCantidad(String estado);
 
 }

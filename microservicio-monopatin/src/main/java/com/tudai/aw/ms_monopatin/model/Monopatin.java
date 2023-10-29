@@ -16,7 +16,7 @@ public class Monopatin {
 	private Long id;
 	
 	@Column(nullable = false)
-	private String estado; //disponible, en uso, mantenimiento
+	private String estado; //disponible, en uso, en mantenimiento
 	
 	@Column(nullable = false)
 	private double latitud;

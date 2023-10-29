@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import com.tudai.aw.ms_administracion.model.clases.Mantenimiento;
 import com.tudai.aw.ms_administracion.model.clases.Monopatin;
 import com.tudai.aw.ms_administracion.model.clases.Parada;
+import com.tudai.aw.ms_administracion.model.dto.MonopatinConViajesDto;
 import com.tudai.aw.ms_administracion.model.dto.MonopatinDto;
 import com.tudai.aw.ms_administracion.model.entidades.Administrador;
 import com.tudai.aw.ms_administracion.repository.AdministracionRepository;
@@ -225,7 +226,31 @@ public class AdministracionService {
 	}
 	
 	public ResponseEntity<?> obtenerMonopatinesConViajesPorAnio(int viajes, int anio) {
-		return null;
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+		
+		ResponseEntity<List<MonopatinConViajesDto>> response = restTemplate.exchange(
+				"http://localhost:8011/monopatines/conViajes/"+viajes+"/anio/"+anio, 
+				HttpMethod.GET, 
+				requestEntity, 
+				new ParameterizedTypeReference<List<MonopatinConViajesDto>>() {} 
+		);
+		
+		return response;
+	}
+	
+	public ResponseEntity<?> obtenerCantidadMonopatinesOperandoYEnMantenimiento() {
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+		
+		ResponseEntity<String> response = restTemplate.exchange(
+				"http://localhost:8011/monopatines/cantidadMonopatines", 
+				HttpMethod.GET, 
+				requestEntity, 
+				new ParameterizedTypeReference<String>() {} 
+		);
+		
+		return response;
 	}
 	
 	//ABM paradas

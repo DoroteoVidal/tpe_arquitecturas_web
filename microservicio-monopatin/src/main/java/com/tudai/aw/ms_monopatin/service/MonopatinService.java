@@ -20,6 +20,20 @@ public class MonopatinService {
 	private MonopatinRepository monopatinRepository;
 	
 	@Transactional
+	public String obtenerCantidadEnUsoYEnMantenimiento()throws Exception {
+		try{    
+			 Long enUso = monopatinRepository.obtenerCantidad("en uso");
+			 Long enMantenimiento = monopatinRepository.obtenerCantidad("en mantenimiento");   
+			 Long disponibles = monopatinRepository.obtenerCantidad("disponible");   
+			 
+			 return "Monopatines disponibles: "+ disponibles + ", en uso: " + enUso + ", en mantenimiento: " + enMantenimiento;
+			 
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+	}
+	
+	@Transactional
 	public List<MonopatinConViajesDto> obtenerConViajesPorAnio(int viajes, int anio) throws Exception {
 		try{    		
             var result = monopatinRepository.obtenerConViajesPorAnio(viajes, anio);

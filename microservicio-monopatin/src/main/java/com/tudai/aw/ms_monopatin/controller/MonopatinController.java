@@ -22,6 +22,15 @@ public class MonopatinController {
 	@Autowired
 	private MonopatinService monopatinService;
 	
+	@GetMapping("/cantidadMonopatines")
+	public ResponseEntity<?> obtenerCantidadEnUsoYEnMantenimiento() {
+		try{
+            return ResponseEntity.status(HttpStatus.OK).body(monopatinService.obtenerCantidadEnUsoYEnMantenimiento());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+        }
+	}
+	
 	/*
 	 * Error, no devuelve los monopatines.
 	 * */
