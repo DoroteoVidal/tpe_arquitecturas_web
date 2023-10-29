@@ -16,8 +16,24 @@ import jakarta.transaction.Transactional;
 @Service("MonopatinService")
 public class MonopatinService {
 	
+	private final double MINMAX = 20;
+	
 	@Autowired
 	private MonopatinRepository monopatinRepository;
+	
+	@Transactional
+	public List<Monopatin> obtenerCercanosZona(double latitud, double longitud) throws Exception {
+		try{    		
+            double latMin = latitud - MINMAX;
+            double latMax = latitud + MINMAX;
+            double longMin = longitud - MINMAX;
+            double longMax = longitud + MINMAX;
+            
+            return monopatinRepository.obtenerCercanosZona(latMin, latMax, longMin, longMax);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+	}
 	
 	@Transactional
 	public String obtenerCantidadEnUsoYEnMantenimiento()throws Exception {

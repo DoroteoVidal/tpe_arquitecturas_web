@@ -31,5 +31,8 @@ public interface MonopatinRepository extends JpaRepository<Monopatin, Long> {
 	
 	@Query("SELECT COUNT(m) FROM Monopatin m WHERE m.estado = :estado")
 	public Long obtenerCantidad(String estado);
+	
+	@Query("SELECT m FROM Monopatin m WHERE (m.latitud BETWEEN :latMin AND :latMax) AND (m.longitud BETWEEN :longMin AND :longMax)")
+	public List<Monopatin> obtenerCercanosZona(double latMin, double latMax, double longMin, double longMax);
 
 }

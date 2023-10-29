@@ -22,6 +22,11 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	@GetMapping("/monopatines/cercanos/latitud/{latitud}/longitud/{longitud}")
+	public ResponseEntity<?> obtenerMonopatinesCercanos(@PathVariable double latitud, @PathVariable double longitud) {
+		return ResponseEntity.status(HttpStatus.OK).body(usuarioService.obtenerMonopatinesCercanos(latitud, longitud));
+	}
+	
 	@PostMapping("")
     public ResponseEntity<?> guardar(@RequestBody Usuario usuario) {
         try{

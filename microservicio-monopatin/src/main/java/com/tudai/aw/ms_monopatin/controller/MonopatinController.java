@@ -22,6 +22,15 @@ public class MonopatinController {
 	@Autowired
 	private MonopatinService monopatinService;
 	
+	@GetMapping("/cercanosZona/latitud/{latitud}/longitud/{longitud}")
+	public ResponseEntity<?> obtenerCercanosZona(@PathVariable double latitud, @PathVariable double longitud) {
+		try{
+            return ResponseEntity.status(HttpStatus.OK).body(monopatinService.obtenerCercanosZona(latitud, longitud));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. No hay monopatines cercanos a tu zona. Por favor intente más tarde.\"}");
+        }
+	}
+	
 	@GetMapping("/cantidadMonopatines")
 	public ResponseEntity<?> obtenerCantidadEnUsoYEnMantenimiento() {
 		try{
