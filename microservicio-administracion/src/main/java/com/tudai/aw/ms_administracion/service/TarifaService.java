@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.tudai.aw.ms_administracion.model.clases.Viaje;
-import com.tudai.aw.ms_administracion.model.dto.MonopatinDto;
 import com.tudai.aw.ms_administracion.model.entidades.Tarifa;
 import com.tudai.aw.ms_administracion.repository.TarifaRepository;
 
@@ -42,7 +41,7 @@ public class TarifaService {
 		);
 		
 		if(response.getStatusCode().is2xxSuccessful()) {
-			Tarifa tarifa = tarifaRepository.getById(1L);
+			Tarifa tarifa = tarifaRepository.obtenerTarifaVigente();
 			int minutos = this.extraerMinutosDeViajes(response.getBody());
 			
 			return ResponseEntity.ok("Total facturado entre el mes: " + mes1 + ", y mes: " + mes2 + " en el anio " + anio + " es: " + minutos * tarifa.getValor());
@@ -63,6 +62,17 @@ public class TarifaService {
 	private static int obtenerMinutosEntreDosHorarios(LocalDateTime inicio, LocalDateTime fin) {
 		return (int) ChronoUnit.MINUTES.between(inicio, fin);
     }
+	
+	@Transactional
+    public Tarifa agregarTarifaExtra(double extra, Long id) throws Exception {
+        try{
+        	Tarifa busqueda = tarifaRepository.findById(id).get();          
+        	busqueda.setValorAgregadoPorPausa(extra);       	
+            return busqueda;
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+	}
 	
 	@Transactional
 	public Tarifa guardar(Tarifa tarifa) throws Exception {
@@ -111,16 +121,5 @@ public class TarifaService {
             throw new Exception(e.getMessage());
         }
     }
-	
-	@Transactional
-    public Tarifa agregarTarifaExtra(double extra, Long id) throws Exception {
-        try{
-        	Tarifa busqueda = tarifaRepository.findById(id).get();          
-        	busqueda.setValorAgregadoPorPausa(extra);       	
-            return busqueda;
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
-	}
 	
 }

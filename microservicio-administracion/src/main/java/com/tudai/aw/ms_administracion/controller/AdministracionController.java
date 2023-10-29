@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tudai.aw.ms_administracion.model.clases.Monopatin;
 import com.tudai.aw.ms_administracion.model.clases.Parada;
 import com.tudai.aw.ms_administracion.model.entidades.Administrador;
+import com.tudai.aw.ms_administracion.model.entidades.Tarifa;
 import com.tudai.aw.ms_administracion.service.AdministracionService;
 import com.tudai.aw.ms_administracion.service.TarifaService;
 
@@ -28,7 +29,7 @@ public class AdministracionController {
 	@Autowired
 	private TarifaService tarifaService;
 	
-	//ABM monopatines
+	//monopatines
 	
 	@PostMapping("/monopatines")
     public ResponseEntity<?> guardarMonopatin(@RequestBody Monopatin monopatin) {
@@ -50,29 +51,24 @@ public class AdministracionController {
 		return administracionService.eliminarMonopatin(id);
 	}
 	
-	@GetMapping("monopatines/reportesPorKm/{km1}/a/{km2}")
+	@GetMapping("/monopatines/reportesPorKm/{km1}/a/{km2}")
 	public ResponseEntity<?> generarReportesDeMonopatinesPorKm(@PathVariable double km1, @PathVariable double km2) {
 		return ResponseEntity.status(HttpStatus.OK).body(administracionService.generarReportesDeMonopatinesPorKm(km1, km2));  
 	}
 	
-	@GetMapping("monopatines/reportesPorTiempoConPausa")
+	@GetMapping("/monopatines/reportesPorTiempoConPausa")
 	public ResponseEntity<?> generarReportesDeMonopatinesPorTiempoConPausa() {
 		return ResponseEntity.status(HttpStatus.OK).body(administracionService.generarReportesDeMonopatinesPorTiempoConPausa());  
 	}
 	
-	@GetMapping("monopatines/reportesPorTiempoSinPausa")
+	@GetMapping("/monopatines/reportesPorTiempoSinPausa")
 	public ResponseEntity<?> generarReportesDeMonopatinesPorTiempoSinPausa() {
 		return ResponseEntity.status(HttpStatus.OK).body(administracionService.generarReportesDeMonopatinesPorTiempoSinPausa());  
 	}
 	
-	@GetMapping("monopatines/cantidadDeViajes/{viajes}/anio/{anio}")
+	@GetMapping("/monopatines/cantidadDeViajes/{viajes}/anio/{anio}")
 	public ResponseEntity<?> obtenerMonopatinesConViajesPorAnio(@PathVariable int viajes, @PathVariable int anio) {
 		return ResponseEntity.status(HttpStatus.OK).body(administracionService.obtenerMonopatinesConViajesPorAnio(viajes, anio));  
-	}
-	
-	@GetMapping("/tarifas/totalFacturadoDe/{mes1}/a/{mes2}/enAnio/{anio}")
-	public ResponseEntity<?> obtenerFacturacionEntreLosMeses(@PathVariable int mes1, @PathVariable int mes2, @PathVariable int anio) {
-		return ResponseEntity.status(HttpStatus.OK).body(tarifaService.obtenerFacturacionEntreLosMeses(mes1, mes2, anio));
 	}
 	
 	@GetMapping("/monopatines/cantidadMonopatines")
@@ -80,7 +76,19 @@ public class AdministracionController {
 		return ResponseEntity.status(HttpStatus.OK).body(administracionService.obtenerCantidadMonopatinesOperandoYEnMantenimiento());  
 	}
 	
-	//ABM paradas
+	//tarifas
+	
+	@GetMapping("/tarifas/totalFacturadoDe/{mes1}/a/{mes2}/enAnio/{anio}")
+	public ResponseEntity<?> obtenerFacturacionEntreLosMeses(@PathVariable int mes1, @PathVariable int mes2, @PathVariable int anio) {
+		return ResponseEntity.status(HttpStatus.OK).body(tarifaService.obtenerFacturacionEntreLosMeses(mes1, mes2, anio));
+	}
+	
+	@PostMapping("/tarifas")
+	public ResponseEntity<?> cambiarPrecioTarifaAPartirDeFecha(@RequestBody Tarifa tarifa) throws Exception {
+		return ResponseEntity.status(HttpStatus.OK).body(tarifaService.guardar(tarifa));  
+	}
+	
+	//paradas
 	
 	@PostMapping("/paradas")
     public ResponseEntity<?> guardarParada(@RequestBody Parada parada) {
@@ -92,14 +100,14 @@ public class AdministracionController {
 		return administracionService.eliminarParada(id);
 	}
 	
-	//ABM usuarios
+	//usuarios
 	
 	@DeleteMapping("/cuentas/{id}")
 	public ResponseEntity<?> anularCuenta(@PathVariable Long id) {
 		return administracionService.anularCuenta(id);
 	}
 	
-	//ABM administrador
+	//administrador
 	
 	@PostMapping("")
     public ResponseEntity<?> guardar(@RequestBody Administrador administrador) {

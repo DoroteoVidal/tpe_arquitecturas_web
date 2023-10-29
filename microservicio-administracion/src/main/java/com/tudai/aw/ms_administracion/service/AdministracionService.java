@@ -76,6 +76,8 @@ public class AdministracionService {
 				);
 				
 				return response2;
+			}else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El monopatin con id: " + id + " no se encuentra disponible");
 			}
 		}
 		//Tira error cuando no existe un monopatin...

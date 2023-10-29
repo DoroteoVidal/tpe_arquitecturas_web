@@ -22,6 +22,15 @@ public class TarifaController {
 	@Autowired
 	private TarifaService tarifaService;		
 	
+	@PutMapping("/agregarTarifaExtra/{id}")
+    public ResponseEntity<?> agregarTarifaExtra(@RequestBody double extra, @PathVariable Long id){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(tarifaService.agregarTarifaExtra(extra, id));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo agregar la tarifa extra, revise los campos e intente nuevamente.\"}");
+        }
+    }
+	
 	@PostMapping("")
 	public ResponseEntity<?> guardar(@RequestBody Tarifa tarifa) {
 		try{
@@ -58,12 +67,4 @@ public class TarifaController {
         }
     }
 	
-	@PutMapping("/agregarTarifaExtra/{id}")
-    public ResponseEntity<?> agregarTarifaExtra(@RequestBody double extra, @PathVariable Long id){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(tarifaService.agregarTarifaExtra(extra, id));
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo agregar la tarifa extra, revise los campos e intente nuevamente.\"}");
-        }
-    }
 }
