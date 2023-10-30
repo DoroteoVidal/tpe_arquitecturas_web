@@ -6,11 +6,11 @@ import lombok.Getter;
 public class MonopatinConViajesDto {
 	private Long id;
 	private Long cantViajes;
-	private Long anio;
+	private Integer anio;
 	
 	public MonopatinConViajesDto() {}
 	
-	public MonopatinConViajesDto(Long id, Long cantViajes, Long anio) {
+	public MonopatinConViajesDto(Long id, Long cantViajes, Integer anio) {
 		super();
 		this.id = id;
 		this.cantViajes = cantViajes;

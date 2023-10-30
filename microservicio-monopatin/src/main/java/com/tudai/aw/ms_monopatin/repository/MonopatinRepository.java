@@ -22,11 +22,16 @@ public interface MonopatinRepository extends JpaRepository<Monopatin, Long> {
 			+ "WHERE v.pausa = false AND v.tiempoPausa = 0")
 	public List<Object[]> obtenerConTiempoSinPausa();
 	
-	@Query(value = "SELECT m.id, COUNT(*), year(v.fecha_hora_fin) "
-			+ "FROM viaje v JOIN monopatin m ON (v.id_monopatin = m.id) "
-			+ "WHERE year(v.fecha_hora_fin) = :anio "
-			+ "GROUP BY m.id, year(v.fecha_hora_fin) "
-			+ "HAVING COUNT(*) > :viajes", nativeQuery = true)
+	@Query("SELECT m.id, COUNT(v), FUNCTION('year', DATE(v.fechaHoraFin)) "
+			+ "FROM Viaje v JOIN Monopatin m ON (v.monopatin.id = m.id) "
+			+ "WHERE FUNCTION('year', DATE(v.fechaHoraFin)) = :anio "
+			+ "GROUP BY m.id "
+			+ "HAVING COUNT(v) > :viajes")
+//	@Query(value="SELECT m.id, COUNT(*), EXTRACT(YEAR FROM v.fecha_hora_fin) "
+//			+ "FROM viaje v JOIN monopatin m ON (v.id_monopatin = m.id) "
+//			+ "WHERE EXTRACT(YEAR FROM v.fecha_hora_fin) = :anio "
+//			+ "GROUP BY m.id "
+//			+ "HAVING COUNT(*) > :viajes", nativeQuery=true)
 	public List<Object[]> obtenerConViajesPorAnio(int viajes, int anio);
 	
 	@Query("SELECT COUNT(m) FROM Monopatin m WHERE m.estado = :estado")

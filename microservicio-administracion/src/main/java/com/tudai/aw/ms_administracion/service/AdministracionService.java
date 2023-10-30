@@ -232,7 +232,7 @@ public class AdministracionService {
 		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 		
 		ResponseEntity<List<MonopatinConViajesDto>> response = restTemplate.exchange(
-				"http://localhost:8011/monopatines/conViajes/"+viajes+"/anio/"+anio, 
+				"http://localhost:8011/monopatines/conViajes/"+viajes+"/enAnio/"+anio, 
 				HttpMethod.GET, 
 				requestEntity, 
 				new ParameterizedTypeReference<List<MonopatinConViajesDto>>() {} 

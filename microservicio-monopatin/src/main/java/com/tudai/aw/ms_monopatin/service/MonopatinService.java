@@ -53,7 +53,7 @@ public class MonopatinService {
 	public List<MonopatinConViajesDto> obtenerConViajesPorAnio(int viajes, int anio) throws Exception {
 		try{    		
             var result = monopatinRepository.obtenerConViajesPorAnio(viajes, anio);
-            return result.stream().map(m -> new MonopatinConViajesDto((Long)m[0], (Long)m[1], (Long)m[2])).collect(Collectors.toList());
+            return result.stream().map(m -> new MonopatinConViajesDto((Long)m[0], (Long)m[1], (Integer)m[2])).collect(Collectors.toList());
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }

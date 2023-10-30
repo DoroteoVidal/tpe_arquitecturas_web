@@ -40,10 +40,7 @@ public class MonopatinController {
         }
 	}
 	
-	/*
-	 * Error, no devuelve los monopatines.
-	 * */
-	@GetMapping("/conViajes/{viajes}/anio/{anio}")
+	@GetMapping("/conViajes/{viajes}/enAnio/{anio}")
 	public ResponseEntity<?> obtenerConViajesPorAnio(@PathVariable int viajes, @PathVariable int anio) {
 		try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinService.obtenerConViajesPorAnio(viajes, anio));
