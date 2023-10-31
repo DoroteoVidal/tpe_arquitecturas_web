@@ -60,9 +60,10 @@ public class MonopatinService {
 	}
 	
 	@Transactional
-	public List<Monopatin> obtenerConRecorridosEntre(double km1, double km2) throws Exception {
+	public List<MonopatinDto> obtenerConRecorridosEntre(double km1, double km2) throws Exception {
 		try{    		
-            return monopatinRepository.obtenerConRecorridosEntre(km1, km2);       	
+            var result = monopatinRepository.obtenerConRecorridosEntre(km1, km2);   
+            return result.stream().map(m -> new MonopatinDto((Long)m[0], (double)m[1])).collect(Collectors.toList()); 
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }

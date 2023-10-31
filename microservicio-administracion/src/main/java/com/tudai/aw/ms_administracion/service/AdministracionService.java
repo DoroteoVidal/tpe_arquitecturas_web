@@ -189,11 +189,11 @@ public class AdministracionService {
 		HttpHeaders headers = new HttpHeaders();
 		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 		
-		ResponseEntity<List<Monopatin>> response = restTemplate.exchange(
+		ResponseEntity<List<MonopatinDto>> response = restTemplate.exchange(
 				"http://localhost:8011/monopatines/reportes/kilometros/" + km1 + "/a/" + km2, 
 				HttpMethod.GET, 
 				requestEntity, 
-				new ParameterizedTypeReference<List<Monopatin>>() {} 
+				new ParameterizedTypeReference<List<MonopatinDto>>() {} 
 		);
 		
 		return response;
