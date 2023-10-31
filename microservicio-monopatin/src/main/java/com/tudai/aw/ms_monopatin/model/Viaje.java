@@ -40,7 +40,7 @@ public class Viaje {
 	private double kilometrosRecorridos;
 	
 	@Column(nullable = false)
-	private Long tiempoPausa; //tiempo de pausa en segundos
+	private Long tiempoPausa;
 	
 	@Column(nullable = false)
 	private boolean pausa;

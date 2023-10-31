@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tudai.aw.ms_administracion.model.clases.Monopatin;
 import com.tudai.aw.ms_administracion.model.clases.Parada;
 import com.tudai.aw.ms_administracion.model.entidades.Administrador;
-import com.tudai.aw.ms_administracion.model.entidades.Tarifa;
 import com.tudai.aw.ms_administracion.service.AdministracionService;
 import com.tudai.aw.ms_administracion.service.TarifaService;
 
@@ -81,11 +80,6 @@ public class AdministracionController {
 	@GetMapping("/tarifas/totalFacturado/{mes1}/a/{mes2}/anio/{anio}")
 	public ResponseEntity<?> obtenerFacturacionEntreLosMeses(@PathVariable int mes1, @PathVariable int mes2, @PathVariable int anio) {
 		return ResponseEntity.status(HttpStatus.OK).body(tarifaService.obtenerFacturacionEntreLosMeses(mes1, mes2, anio));
-	}
-	
-	@PostMapping("/tarifas")
-	public ResponseEntity<?> cambiarPrecioTarifaAPartirDeFecha(@RequestBody Tarifa tarifa) throws Exception {
-		return ResponseEntity.status(HttpStatus.OK).body(tarifaService.guardar(tarifa));  
 	}
 	
 	//paradas
