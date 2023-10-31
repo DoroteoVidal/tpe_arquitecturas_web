@@ -33,7 +33,7 @@ public class MantenimientoService {
 		
 		if(pausa == 1) {
 			ResponseEntity<List<MonopatinDto>> response = restTemplate.exchange(
-					"http://localhost:8011/monopatines/reportesPorTiempoConPausa", 
+					"http://localhost:8011/monopatines/reportes/tiempoConPausa", 
 					HttpMethod.GET, 
 					requestEntity, 
 					new ParameterizedTypeReference<List<MonopatinDto>>() {} 
@@ -43,7 +43,7 @@ public class MantenimientoService {
 		
 		if(pausa == 0) {
 			ResponseEntity<List<MonopatinDto>> response2 = restTemplate.exchange(
-					"http://localhost:8011/monopatines/reportesPorTiempoSinPausa", 
+					"http://localhost:8011/monopatines/reportes/tiempoSinPausa", 
 					HttpMethod.GET, 
 					requestEntity, 
 					new ParameterizedTypeReference<List<MonopatinDto>>() {} 

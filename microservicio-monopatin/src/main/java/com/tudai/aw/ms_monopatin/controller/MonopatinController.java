@@ -22,7 +22,7 @@ public class MonopatinController {
 	@Autowired
 	private MonopatinService monopatinService;
 	
-	@GetMapping("/cercanosZona/latitud/{latitud}/longitud/{longitud}")
+	@GetMapping("/cercanos/latitud/{latitud}/longitud/{longitud}")
 	public ResponseEntity<?> obtenerCercanosZona(@PathVariable double latitud, @PathVariable double longitud) {
 		try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinService.obtenerCercanosZona(latitud, longitud));
@@ -40,7 +40,7 @@ public class MonopatinController {
         }
 	}
 	
-	@GetMapping("/conViajes/{viajes}/enAnio/{anio}")
+	@GetMapping("/conViajes/{viajes}/anio/{anio}")
 	public ResponseEntity<?> obtenerConViajesPorAnio(@PathVariable int viajes, @PathVariable int anio) {
 		try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinService.obtenerConViajesPorAnio(viajes, anio));
@@ -49,7 +49,7 @@ public class MonopatinController {
         }
 	}
 	
-	@GetMapping("/reportesPorKm/{km1}/a/{km2}")
+	@GetMapping("/reportes/kilometros/{km1}/a/{km2}")
 	public ResponseEntity<?> obtenerConRecorridosEntre(@PathVariable double km1, @PathVariable double km2) {
 		try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinService.obtenerConRecorridosEntre(km1, km2));
@@ -58,7 +58,7 @@ public class MonopatinController {
         }
 	}
 	
-	@GetMapping("/reportesPorTiempoConPausa")
+	@GetMapping("/reportes/tiempoConPausa")
 	public ResponseEntity<?> obtenerConTiempoConPausa() {
 		try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinService.obtenerConTiempoConPausa());
@@ -67,7 +67,7 @@ public class MonopatinController {
         }
 	}
 	
-	@GetMapping("/reportesPorTiempoSinPausa")
+	@GetMapping("/reportes/tiempoSinPausa")
 	public ResponseEntity<?> obtenerConTiempoSinPausa() {
 		try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinService.obtenerConTiempoSinPausa());

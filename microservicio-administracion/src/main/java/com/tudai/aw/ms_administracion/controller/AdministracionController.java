@@ -51,34 +51,34 @@ public class AdministracionController {
 		return administracionService.eliminarMonopatin(id);
 	}
 	
-	@GetMapping("/monopatines/reportesPorKm/{km1}/a/{km2}")
+	@GetMapping("/monopatines/reportes/kilometros/{km1}/a/{km2}")
 	public ResponseEntity<?> generarReportesDeMonopatinesPorKm(@PathVariable double km1, @PathVariable double km2) {
 		return ResponseEntity.status(HttpStatus.OK).body(administracionService.generarReportesDeMonopatinesPorKm(km1, km2));  
 	}
 	
-	@GetMapping("/monopatines/reportesPorTiempoConPausa")
+	@GetMapping("/monopatines/reportes/tiempoConPausa")
 	public ResponseEntity<?> generarReportesDeMonopatinesPorTiempoConPausa() {
 		return ResponseEntity.status(HttpStatus.OK).body(administracionService.generarReportesDeMonopatinesPorTiempoConPausa());  
 	}
 	
-	@GetMapping("/monopatines/reportesPorTiempoSinPausa")
+	@GetMapping("/monopatines/reportes/tiempoSinPausa")
 	public ResponseEntity<?> generarReportesDeMonopatinesPorTiempoSinPausa() {
 		return ResponseEntity.status(HttpStatus.OK).body(administracionService.generarReportesDeMonopatinesPorTiempoSinPausa());  
 	}
 	
-	@GetMapping("/monopatines/cantidadDeViajes/{viajes}/anio/{anio}")
+	@GetMapping("/monopatines/cantidadViajes/{viajes}/anio/{anio}")
 	public ResponseEntity<?> obtenerMonopatinesConViajesPorAnio(@PathVariable int viajes, @PathVariable int anio) {
 		return ResponseEntity.status(HttpStatus.OK).body(administracionService.obtenerMonopatinesConViajesPorAnio(viajes, anio));  
 	}
 	
-	@GetMapping("/monopatines/cantidadMonopatines")
+	@GetMapping("/monopatines/cantidad/operandoMantenimiento")
 	public ResponseEntity<?> obtenerCantidadMonopatinesOperandoYEnMantenimiento() {
 		return ResponseEntity.status(HttpStatus.OK).body(administracionService.obtenerCantidadMonopatinesOperandoYEnMantenimiento());  
 	}
 	
 	//tarifas
 	
-	@GetMapping("/tarifas/totalFacturadoDe/{mes1}/a/{mes2}/enAnio/{anio}")
+	@GetMapping("/tarifas/totalFacturado/{mes1}/a/{mes2}/anio/{anio}")
 	public ResponseEntity<?> obtenerFacturacionEntreLosMeses(@PathVariable int mes1, @PathVariable int mes2, @PathVariable int anio) {
 		return ResponseEntity.status(HttpStatus.OK).body(tarifaService.obtenerFacturacionEntreLosMeses(mes1, mes2, anio));
 	}

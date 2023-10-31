@@ -32,7 +32,7 @@ public class UsuarioService {
 		HttpEntity<Monopatin> requestEntity = new HttpEntity<>(monopatinNuevo, headers);
 		
 		ResponseEntity<List<Monopatin>> response = restTemplate.exchange(
-				"http://localhost:8011/monopatines/cercanosZona/latitud/"+latitud+"/longitud/"+longitud,
+				"http://localhost:8011/monopatines/cercanos/latitud/"+latitud+"/longitud/"+longitud,
 				HttpMethod.GET,
 				requestEntity,
 				new ParameterizedTypeReference<List<Monopatin>>() {}

@@ -80,7 +80,7 @@ public class AdministracionService {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El monopatin con id: " + id + " no se encuentra disponible");
 			}
 		}
-		//Tira error cuando no existe un monopatin...
+
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro el monopatin con id: " + id);
 	}
 
@@ -143,7 +143,7 @@ public class AdministracionService {
 		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 		
 		ResponseEntity<Mantenimiento> response = restTemplate.exchange(
-				"http://localhost:8041/mantenimientos/porIdMonopatin/" + id, 
+				"http://localhost:8041/mantenimientos/porMonopatin/" + id, 
 				HttpMethod.GET, 
 				requestEntity, 
 				new ParameterizedTypeReference<Mantenimiento>() {} 
@@ -190,7 +190,7 @@ public class AdministracionService {
 		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 		
 		ResponseEntity<List<Monopatin>> response = restTemplate.exchange(
-				"http://localhost:8011/monopatines/reportesPorKm/" + km1 + "/a/" + km2, 
+				"http://localhost:8011/monopatines/reportes/kilometros/" + km1 + "/a/" + km2, 
 				HttpMethod.GET, 
 				requestEntity, 
 				new ParameterizedTypeReference<List<Monopatin>>() {} 
@@ -204,7 +204,7 @@ public class AdministracionService {
 		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 		
 		ResponseEntity<List<MonopatinDto>> response = restTemplate.exchange(
-				"http://localhost:8011/monopatines/reportesPorTiempoConPausa", 
+				"http://localhost:8011/monopatines/reportes/tiempoConPausa", 
 				HttpMethod.GET, 
 				requestEntity, 
 				new ParameterizedTypeReference<List<MonopatinDto>>() {} 
@@ -218,7 +218,7 @@ public class AdministracionService {
 		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 		
 		ResponseEntity<List<MonopatinDto>> response = restTemplate.exchange(
-				"http://localhost:8011/monopatines/reportesPorTiempoSinPausa", 
+				"http://localhost:8011/monopatines/reportes/tiempoSinPausa", 
 				HttpMethod.GET, 
 				requestEntity, 
 				new ParameterizedTypeReference<List<MonopatinDto>>() {} 
@@ -232,7 +232,7 @@ public class AdministracionService {
 		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 		
 		ResponseEntity<List<MonopatinConViajesDto>> response = restTemplate.exchange(
-				"http://localhost:8011/monopatines/conViajes/"+viajes+"/enAnio/"+anio, 
+				"http://localhost:8011/monopatines/conViajes/"+viajes+"/anio/"+anio, 
 				HttpMethod.GET, 
 				requestEntity, 
 				new ParameterizedTypeReference<List<MonopatinConViajesDto>>() {} 
