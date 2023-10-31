@@ -42,21 +42,24 @@ public class TarifaService {
 		
 		if(response.getStatusCode().is2xxSuccessful()) {
 			Tarifa tarifa = tarifaRepository.obtenerTarifaVigente();
-			int minutos = this.extraerMinutosDeViajes(response.getBody());
+			double facturacion = this.obtenerFacturacion(response.getBody(), tarifa.getValor(), tarifa.getValorAgregadoPorPausa());
 			
-			return ResponseEntity.ok("Total facturado entre el mes: " + mes1 + ", y mes: " + mes2 + " en el anio " + anio + " es: " + minutos * tarifa.getValor());
+			return ResponseEntity.ok("Total facturado entre el mes: " + mes1 + ", y mes: " + mes2 + " en el anio " + anio + " es: " + facturacion);
 			
 		}
 		
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe facturacion");
 	}
 	
-	private int extraerMinutosDeViajes(List<Viaje> viajes) {
-		int minutos = 0;
+	private double obtenerFacturacion(List<Viaje> viajes, double valor, double valorPorPausa) {
+		double facturacion = 0;
 		for(Viaje v : viajes) {
-			minutos += obtenerMinutosEntreDosHorarios(v.getFechaHoraInicio(), v.getFechaHoraFin());
+			if(v.isPausa() && v.getTiempoPausa() > 15) {		
+				facturacion += v.getTiempoPausa() * valorPorPausa;				
+			}
+			facturacion += obtenerMinutosEntreDosHorarios(v.getFechaHoraInicio(), v.getFechaHoraFin());
 		}
-		return minutos;
+		return facturacion;
 	}
 	
 	private static int obtenerMinutosEntreDosHorarios(LocalDateTime inicio, LocalDateTime fin) {

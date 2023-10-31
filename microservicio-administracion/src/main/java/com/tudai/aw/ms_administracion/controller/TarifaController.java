@@ -22,7 +22,7 @@ public class TarifaController {
 	@Autowired
 	private TarifaService tarifaService;		
 	
-	@PutMapping("/agregarTarifaExtra/{id}")
+	@PutMapping("/agregarExtra/{id}")
     public ResponseEntity<?> agregarTarifaExtra(@RequestBody double extra, @PathVariable Long id){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(tarifaService.agregarTarifaExtra(extra, id));
