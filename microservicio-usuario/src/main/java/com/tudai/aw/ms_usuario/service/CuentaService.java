@@ -15,6 +15,22 @@ public class CuentaService {
 	private CuentaRepository cuentaRepository;
 	
 	@Transactional
+	public boolean anularCuenta(Long id) throws Exception {
+		try{
+			if(cuentaRepository.existsById(id)) {
+				Cuenta busqueda = cuentaRepository.findById(id).get();
+	            busqueda.setEstado("anulada");
+	            return true;
+			}else {
+				throw new Exception();
+			}
+        	
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+	}
+	
+	@Transactional
     public Cuenta guardar(Cuenta cuenta) throws Exception {	
         try{    		
             return cuentaRepository.save(cuenta);       	

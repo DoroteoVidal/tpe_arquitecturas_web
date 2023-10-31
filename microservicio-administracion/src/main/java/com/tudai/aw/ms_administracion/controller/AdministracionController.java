@@ -102,9 +102,9 @@ public class AdministracionController {
 	
 	//usuarios
 	
-	@DeleteMapping("/cuentas/{id}")
+	@PutMapping("/cuentas/anular/{id}")
 	public ResponseEntity<?> anularCuenta(@PathVariable Long id) {
-		return administracionService.anularCuenta(id);
+		return ResponseEntity.status(HttpStatus.OK).body(administracionService.anularCuenta(id));
 	}
 	
 	//administrador

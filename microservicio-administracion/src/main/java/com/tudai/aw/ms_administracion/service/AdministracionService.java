@@ -292,7 +292,20 @@ public class AdministracionService {
 	//ABM usuarios
 	
 	public ResponseEntity<?> anularCuenta(Long id) {
-		return null;
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);		
+		ResponseEntity<String> response = restTemplate.exchange(
+				"http://localhost:8001/cuentas/anular/" + id,
+				HttpMethod.PUT,
+				requestEntity,
+				String.class
+		);
+		
+		if(response != null) {
+			return ResponseEntity.ok("La cuenta con id: " + id + " fue anulada con exito");
+		}
+		
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe cuenta con id: " + id);
 	}
 	
 	//ABM administrador

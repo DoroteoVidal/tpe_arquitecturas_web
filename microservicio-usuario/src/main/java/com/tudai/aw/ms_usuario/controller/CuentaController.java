@@ -22,6 +22,15 @@ public class CuentaController {
 	@Autowired
 	private CuentaService cuentaService;
 	
+	@PutMapping("/anular/{id}")
+	public ResponseEntity<?> anularCuenta(@PathVariable Long id){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(cuentaService.anularCuenta(id));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo anular la cuenta. Por favor intente mas tarde.\"}");
+        }
+    }
+	
 	@PostMapping("")
     public ResponseEntity<?> guardar(@RequestBody Cuenta cuenta) {
         try{
