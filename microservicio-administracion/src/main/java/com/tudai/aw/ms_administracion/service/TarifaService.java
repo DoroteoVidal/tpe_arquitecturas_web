@@ -55,9 +55,9 @@ public class TarifaService {
 		double facturacion = 0;
 		for(Viaje v : viajes) {
 			if(v.isPausa() && v.getTiempoPausa() > 15) {		
-				facturacion += v.getTiempoPausa() * valorPorPausa;				
+				facturacion += v.getTiempoPausa() * valorPorPausa;	
 			}
-			facturacion += obtenerMinutosEntreDosHorarios(v.getFechaHoraInicio(), v.getFechaHoraFin());
+			facturacion += obtenerMinutosEntreDosHorarios(v.getFechaHoraInicio(), v.getFechaHoraFin()) * valor;
 		}
 		return facturacion;
 	}

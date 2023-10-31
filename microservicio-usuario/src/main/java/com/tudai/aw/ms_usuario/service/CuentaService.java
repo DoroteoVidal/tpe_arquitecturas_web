@@ -3,8 +3,11 @@ package com.tudai.aw.ms_usuario.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tudai.aw.ms_usuario.dto.CuentaDto;
 import com.tudai.aw.ms_usuario.model.Cuenta;
+import com.tudai.aw.ms_usuario.model.Usuario;
 import com.tudai.aw.ms_usuario.repository.CuentaRepository;
+import com.tudai.aw.ms_usuario.repository.UsuarioRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -13,6 +16,9 @@ public class CuentaService {
 	
 	@Autowired
 	private CuentaRepository cuentaRepository;
+	
+	@Autowired 
+	private UsuarioRepository usuarioRepository;
 	
 	@Transactional
 	public boolean anularCuenta(Long id) throws Exception {
@@ -31,9 +37,10 @@ public class CuentaService {
 	}
 	
 	@Transactional
-    public Cuenta guardar(Cuenta cuenta) throws Exception {	
+    public Cuenta guardar(CuentaDto dto) throws Exception {	
         try{    		
-            return cuentaRepository.save(cuenta);       	
+        	Usuario usuario = usuarioRepository.findById(dto.getIdUsuario()).get();
+            return cuentaRepository.save(new Cuenta(dto.getDinero(), usuario, dto.getEstado()));       	
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tudai.aw.ms_usuario.dto.CuentaDto;
 import com.tudai.aw.ms_usuario.model.Cuenta;
 import com.tudai.aw.ms_usuario.service.CuentaService;
 
@@ -32,9 +33,9 @@ public class CuentaController {
     }
 	
 	@PostMapping("")
-    public ResponseEntity<?> guardar(@RequestBody Cuenta cuenta) {
+    public ResponseEntity<?> guardar(@RequestBody CuentaDto dto) {
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(cuentaService.guardar(cuenta));
+            return ResponseEntity.status(HttpStatus.OK).body(cuentaService.guardar(dto));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo guardar la cuenta, revise los campos e intente nuevamente.\"}");
         }
