@@ -11,16 +11,16 @@ import jakarta.annotation.PostConstruct;
 @SpringBootApplication
 public class MicroservicioAdministracionApplication {
 	
-	@Autowired
-	private CargaDatos datos;
+//	@Autowired
+//	private CargaDatos datos;
 
 	public static void main(String[] args) {
 		SpringApplication.run(MicroservicioAdministracionApplication.class, args);
 	}
 	
-	@PostConstruct
-	public void iniciar() {
-		datos.cargar();
-	}
+//	@PostConstruct
+//	public void iniciar() {
+//		datos.cargar();
+//	}
 
 }

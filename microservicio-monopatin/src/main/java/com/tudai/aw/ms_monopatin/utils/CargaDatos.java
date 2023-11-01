@@ -32,21 +32,13 @@ public class CargaDatos {
 		monopatinRepository.save(m4);
 		monopatinRepository.save(m5);
 		
-		Viaje v1 = new Viaje(m1, 1L, LocalDateTime.of(2023, 8, 7, 12, 34), LocalDateTime.of(2023, 8, 7, 12, 45), 12, 0L, false);
-		Viaje v2 = new Viaje(m1, 2L, LocalDateTime.of(2023, 9, 19, 9, 2), LocalDateTime.of(2023, 9, 19, 9, 24), 10, 5L, true);
-		Viaje v3 = new Viaje(m2, 1L, LocalDateTime.of(2023, 10, 23, 11, 22), LocalDateTime.of(2023, 10, 23, 11, 46), 12, 16L, true);
-		Viaje v4 = new Viaje(m3, 3L, LocalDateTime.of(2022, 3, 3, 10, 14), LocalDateTime.of(2022, 3, 3, 10, 22), 12, 2L, true);
-		Viaje v5 = new Viaje(m3, 3L, LocalDateTime.of(2022, 12, 3, 20, 2), LocalDateTime.of(2022, 12, 3, 20, 10), 3, 0L, false);
-		Viaje v6 = new Viaje(m3, 2L, LocalDateTime.of(2022, 4, 9, 12, 5), LocalDateTime.of(2022, 4, 9, 12, 13), 6, 0L, false);
-		Viaje v7 = new Viaje(m4, 1L, LocalDateTime.of(2022, 9, 28, 21, 13), LocalDateTime.of(2022, 9, 28, 21, 21), 7, 0L, false);
+		Viaje v1 = new Viaje(m1, 1L, LocalDateTime.of(2023, 8, 7, 12, 34), LocalDateTime.of(2023, 8, 7, 12, 45), 12, 0L, false, null);
+		Viaje v2 = new Viaje(m1, 2L, LocalDateTime.of(2023, 9, 19, 9, 2), LocalDateTime.of(2023, 9, 19, 9, 24), 10, 5L, true, LocalDateTime.of(2023, 9, 19, 9, 7));
+		Viaje v3 = new Viaje(m2, 1L, LocalDateTime.of(2023, 10, 23, 11, 22), LocalDateTime.of(2023, 10, 23, 11, 46), 12, 16L, true, LocalDateTime.of(2023, 10, 23, 11, 26));
 		
 		viajeRepository.save(v1);
 		viajeRepository.save(v2);
 		viajeRepository.save(v3);
-		viajeRepository.save(v4);
-		viajeRepository.save(v5);
-		viajeRepository.save(v6);
-		viajeRepository.save(v7);
 		
 	}
 }

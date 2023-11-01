@@ -1,14 +1,11 @@
 package com.tudai.aw.ms_administracion.model.entidades;
 
-import java.time.LocalDateTime;
-
+import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.Data;
 
 @Data
@@ -28,13 +25,12 @@ public class Tarifa {
 	@Column(name = "valor_agregado_por_pausa")
 	private double valorAgregadoPorPausa;
 	
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable = false)
-	private LocalDateTime fechaVigencia;
+	private LocalDate fechaVigencia;
 	
 	public Tarifa() {}
 
-	public Tarifa(String clave, double valor, double valorAgregadoPorPausa, LocalDateTime fechaVigencia) {
+	public Tarifa(String clave, double valor, double valorAgregadoPorPausa, LocalDate fechaVigencia) {
 		super();
 		this.clave = clave;
 		this.valor = valor;

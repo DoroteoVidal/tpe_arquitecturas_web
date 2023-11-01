@@ -13,11 +13,12 @@ public class ViajeDto {
 	private double kilometrosRecorridos;
 	private Long tiempoPausa;
 	private boolean pausa;
+	private LocalDateTime inicioPausa;
 	
 	public ViajeDto() {}
 	
 	public ViajeDto(Long idMonopatin, Long idUsuario, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin,
-			double kilometrosRecorridos, Long tiempoPausa, boolean pausa) {
+			double kilometrosRecorridos, Long tiempoPausa, boolean pausa, LocalDateTime inicioPausa) {
 		super();
 		this.idMonopatin = idMonopatin;
 		this.idUsuario = idUsuario;
@@ -26,6 +27,7 @@ public class ViajeDto {
 		this.kilometrosRecorridos = kilometrosRecorridos;
 		this.tiempoPausa = tiempoPausa;
 		this.pausa = pausa;
+		this.inicioPausa = inicioPausa;
 	}
 		
 }

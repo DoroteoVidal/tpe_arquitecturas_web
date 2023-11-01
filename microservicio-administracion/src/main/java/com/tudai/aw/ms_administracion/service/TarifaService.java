@@ -41,23 +41,25 @@ public class TarifaService {
 		);
 		
 		if(response.getStatusCode().is2xxSuccessful()) {
-			Tarifa tarifa = tarifaRepository.obtenerTarifaVigente().get();
-			double facturacion = this.obtenerFacturacion(response.getBody(), tarifa.getValor(), tarifa.getValorAgregadoPorPausa());
-			
-			return ResponseEntity.ok("Total facturado entre el mes: " + mes1 + ", y mes: " + mes2 + " en el año " + anio + " es: " + facturacion);
-			
+			double facturacion = this.obtenerFacturacion(response.getBody());			
+			return ResponseEntity.ok("Total facturado entre el mes: " + mes1 + ", y mes: " + mes2 + " en el año " + anio + " es: " + facturacion);			
 		}
 		
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe facturacion");
 	}
 	
-	private double obtenerFacturacion(List<Viaje> viajes, double valor, double valorPorPausa) {
+	private double obtenerFacturacion(List<Viaje> viajes) {
 		double facturacion = 0;
+		double tiempoMaximo = 15;
 		for(Viaje v : viajes) {
-			if(v.isPausa() && v.getTiempoPausa() > 15) {		
-				facturacion += v.getTiempoPausa() * valorPorPausa;	
+			Tarifa tarifa = tarifaRepository.obtenerTarifaVigente(v.getFechaHoraFin().toLocalDate()).get();
+			if(v.getTiempoPausa() > tiempoMaximo) {
+				LocalDateTime finPausa = v.getInicioPausa().plusMinutes(v.getTiempoPausa());
+				facturacion += obtenerMinutosEntreDosHorarios(v.getFechaHoraInicio(), finPausa) * tarifa.getValor();
+				facturacion += obtenerMinutosEntreDosHorarios(finPausa, v.getFechaHoraFin()) * tarifa.getValorAgregadoPorPausa();			
+			}else {
+				facturacion += obtenerMinutosEntreDosHorarios(v.getFechaHoraInicio(), v.getFechaHoraFin()) * tarifa.getValor();
 			}
-			facturacion += obtenerMinutosEntreDosHorarios(v.getFechaHoraInicio(), v.getFechaHoraFin()) * valor;
 		}
 		return facturacion;
 	}

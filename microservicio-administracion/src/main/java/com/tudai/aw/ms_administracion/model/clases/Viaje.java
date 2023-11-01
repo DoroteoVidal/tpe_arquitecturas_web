@@ -15,6 +15,7 @@ public class Viaje implements Serializable {
 	private double kilometrosRecorridos;
 	private Long tiempoPausa;
 	private boolean pausa;
+	private LocalDateTime inicioPausa;
 	
 	public Viaje() {}
 	
@@ -26,5 +27,6 @@ public class Viaje implements Serializable {
 		this.kilometrosRecorridos = v.getKilometrosRecorridos();
 		this.tiempoPausa = v.getTiempoPausa();
 		this.pausa = v.isPausa();
+		this.inicioPausa = v.getInicioPausa();
 	}
 }

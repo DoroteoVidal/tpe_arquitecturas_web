@@ -44,10 +44,15 @@ public class Viaje {
 	
 	@Column(nullable = false)
 	private boolean pausa;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "inicio_pausa")
+	private LocalDateTime inicioPausa;
 
 	public Viaje() {}
 
-	public Viaje(Monopatin monopatin, Long idUsuario, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, double kilometrosRecorridos, Long tiempoPausa, boolean pausa) {
+	public Viaje(Monopatin monopatin, Long idUsuario, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, 
+			double kilometrosRecorridos, Long tiempoPausa, boolean pausa, LocalDateTime inicioPausa) {
 		super();
 		this.monopatin = monopatin;
 		this.idUsuario = idUsuario;
@@ -56,6 +61,7 @@ public class Viaje {
 		this.kilometrosRecorridos = kilometrosRecorridos;
 		this.tiempoPausa = tiempoPausa;
 		this.pausa = pausa;
+		this.inicioPausa = inicioPausa;
 	}
 	
 	

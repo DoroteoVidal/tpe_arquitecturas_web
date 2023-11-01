@@ -35,12 +35,8 @@ public class ViajeService {
     public Viaje guardar(ViajeDto dto) throws Exception {	
         try{    		
         	Monopatin m = monopatinRepository.findById(dto.getIdMonopatin()).get();
-        	if(dto.isPausa()) {
-        		return viajeRepository.save(new Viaje(m, dto.getIdUsuario(), dto.getFechaHoraInicio(), 
-                		dto.getFechaHoraFin().plusMinutes(dto.getTiempoPausa()), dto.getKilometrosRecorridos(), dto.getTiempoPausa(), dto.isPausa()));       	
-        	}
             return viajeRepository.save(new Viaje(m, dto.getIdUsuario(), dto.getFechaHoraInicio(), 
-            		dto.getFechaHoraFin(), dto.getKilometrosRecorridos(), dto.getTiempoPausa(), dto.isPausa()));       	
+            		dto.getFechaHoraFin(), dto.getKilometrosRecorridos(), dto.getTiempoPausa(), dto.isPausa(), dto.getInicioPausa()));       	
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
