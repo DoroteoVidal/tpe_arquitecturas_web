@@ -34,7 +34,7 @@ public class TarifaService {
 		HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 		
 		ResponseEntity<List<Viaje>> response = restTemplate.exchange(
-				"http://localhost:8011/viajes/entre/"+mes1+"/a/"+mes2+"/enAnio/"+anio, 
+				"http://localhost:8011/viajes/entre/"+mes1+"/a/"+mes2+"/anio/"+anio, 
 				HttpMethod.GET, 
 				requestEntity, 
 				new ParameterizedTypeReference<List<Viaje>>() {} 
@@ -44,7 +44,7 @@ public class TarifaService {
 			Tarifa tarifa = tarifaRepository.obtenerTarifaVigente();
 			double facturacion = this.obtenerFacturacion(response.getBody(), tarifa.getValor(), tarifa.getValorAgregadoPorPausa());
 			
-			return ResponseEntity.ok("Total facturado entre el mes: " + mes1 + ", y mes: " + mes2 + " en el anio " + anio + " es: " + facturacion);
+			return ResponseEntity.ok("Total facturado entre el mes: " + mes1 + ", y mes: " + mes2 + " en el año " + anio + " es: " + facturacion);
 			
 		}
 		

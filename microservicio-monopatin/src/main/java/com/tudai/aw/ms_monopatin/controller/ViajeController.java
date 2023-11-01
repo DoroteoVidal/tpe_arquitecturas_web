@@ -23,7 +23,7 @@ public class ViajeController {
 	@Autowired
 	private ViajeService viajeService;
 	
-	@GetMapping("/entre/{mes1}/a/{mes2}/enAnio/{anio}")
+	@GetMapping("/entre/{mes1}/a/{mes2}/anio/{anio}")
 	public ResponseEntity<?> obtenerFacturacionEntreLosMeses(@PathVariable int mes1, @PathVariable int mes2, @PathVariable int anio) {
 		try{
 			return ResponseEntity.status(HttpStatus.OK).body(viajeService.obtenerFacturacionEntreLosMeses(mes1, mes2, anio));
