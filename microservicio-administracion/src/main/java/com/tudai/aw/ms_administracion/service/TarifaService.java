@@ -41,7 +41,7 @@ public class TarifaService {
 		);
 		
 		if(response.getStatusCode().is2xxSuccessful()) {
-			Tarifa tarifa = tarifaRepository.obtenerTarifaVigente();
+			Tarifa tarifa = tarifaRepository.obtenerTarifaVigente().get();
 			double facturacion = this.obtenerFacturacion(response.getBody(), tarifa.getValor(), tarifa.getValorAgregadoPorPausa());
 			
 			return ResponseEntity.ok("Total facturado entre el mes: " + mes1 + ", y mes: " + mes2 + " en el año " + anio + " es: " + facturacion);
